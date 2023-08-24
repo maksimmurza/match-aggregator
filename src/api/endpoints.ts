@@ -8,4 +8,6 @@ export const COMPETITION_SCHEDULE = (
   return `${footballDataBaseURL}/competitions/${leagueKey}/${query}`;
 };
 
-export const CURRENT_SEASON_LEAGUES = `${rapidAPIBaseURL}/v2/leagues/current/`;
+export const CURRENT_SEASON_LEAGUES = `${rapidAPIBaseURL}/leagues/current/`;
+
+export const TEAMS_INFO_URL = `${rapidAPIBaseURL}/teams/league/`;
