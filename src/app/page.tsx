@@ -1,16 +1,21 @@
 import { COMPETITION_SCHEDULE } from '@/api/endpoints';
+import GameCard from '@/components/GameCard';
+import ScrollableCardList from '@/layouts/ScrollableCardList';
+import { FootballMatch } from '@/types/games';
+import { getEnglishPremierLeagueSchedule } from '@/api/requests';
 
 export default async function Home() {
-  const response = await fetch(COMPETITION_SCHEDULE('PL'), {
-    headers: {
-      'X-Auth-Token': `${process.env.REACT_APP_footballDataToken}`,
-    },
-  });
-  const data = await response.json();
+  const data = await getEnglishPremierLeagueSchedule();
 
   return (
     <main /* className="flex min-h-screen flex-col items-center justify-between p-24" */>
-      {data ? data.matches.length : 'no'}
+      {data && (
+        <ScrollableCardList>
+          {data.matches.map((item: FootballMatch) => {
+            return <GameCard key={item.id} {...item} />;
+          })}
+        </ScrollableCardList>
+      )}
     </main>
   );
 }

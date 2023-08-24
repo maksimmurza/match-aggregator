@@ -1,10 +1,11 @@
-// TODO: type league: LeagueKey
+import { footballDataBaseURL, rapidAPIBaseURL } from './constants';
+import { LeagueKey } from './types';
+
 export const COMPETITION_SCHEDULE = (
-  league: string,
+  leagueKey: LeagueKey,
   query: string = 'matches?status=SCHEDULED'
 ) => {
-  return `https://api.football-data.org/v4/competitions/${league}/${query}`;
+  return `${footballDataBaseURL}/competitions/${leagueKey}/${query}`;
 };
 
-export const CURRENT_SEASON_LEAGUES_URL =
-  'https://api-football-v1.p.rapidapi.com/v2/leagues/current/';
+export const CURRENT_SEASON_LEAGUES = `${rapidAPIBaseURL}/v2/leagues/current/`;
