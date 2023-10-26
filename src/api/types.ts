@@ -1,6 +1,4 @@
-import { CHAMPIONS_LEAGUE, ENGLISH_PREMIER_LEAGUE, SPANISH_LA_LIGA } from './constants';
+import { LEAGUES_KEYS, AUTH_HEADERS } from './constants';
 
-export type LeagueKey =
-  | typeof ENGLISH_PREMIER_LEAGUE
-  | typeof SPANISH_LA_LIGA
-  | typeof CHAMPIONS_LEAGUE;
+// type equals set of LEAGUES_KEYS values
+export type LeagueKey<T = typeof LEAGUES_KEYS> = T[keyof T];
