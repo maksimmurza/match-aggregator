@@ -1,5 +1,5 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { BASE_URLS, AUTH_HEADERS } from '../constants';
+import { BASE_URLS, AUTH_HEADERS } from '../constants/requestOptions';
 
 const getAuthHeaders = (url: string) => {
   if (!url) {

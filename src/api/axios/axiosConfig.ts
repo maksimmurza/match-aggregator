@@ -6,7 +6,9 @@ import {
   axiosResponseErrorHandler,
 } from './axiosUtils';
 
-const axiosConfig = {};
+const axiosConfig = {
+  // we have two APIs, so we can't define baseURL
+};
 
 const axiosInstance = axios.create(axiosConfig);
 

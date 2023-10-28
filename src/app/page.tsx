@@ -1,8 +1,8 @@
-import { COMPETITION_SCHEDULE } from '@/api/endpoints';
 import GameCard from '@/components/GameCard';
 import ScrollableCardList from '@/layouts/ScrollableCardList';
 import { FootballMatch } from '@/types/games';
-import { getEnglishPremierLeagueSchedule } from '@/api/requests';
+import { getEnglishPremierLeagueSchedule } from '@/api/requests/gamesSchedule';
+import { FootballMatchApi } from '@/api/types/types';
 
 export default async function Home() {
   const data = await getEnglishPremierLeagueSchedule();
@@ -11,7 +11,7 @@ export default async function Home() {
     <main /* className="flex min-h-screen flex-col items-center justify-between p-24" */>
       {data && (
         <ScrollableCardList>
-          {data.matches.map((item: FootballMatch) => {
+          {data.matches.map((item: FootballMatchApi) => {
             return <GameCard key={item.id} {...item} />;
           })}
         </ScrollableCardList>

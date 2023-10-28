@@ -1,11 +1,11 @@
-import { BASE_URLS } from './constants';
-import { LeagueKey } from './types';
+import { BASE_URLS } from './requestOptions';
+import { LeagueCode } from '../types/types';
 
 export const COMPETITION_SCHEDULE = (
-  leagueKey: LeagueKey,
+  LeagueCode: LeagueCode,
   query: string = 'matches?status=SCHEDULED'
 ) => {
-  return `${BASE_URLS.footballDataApi}/competitions/${leagueKey}/${query}`;
+  return `${BASE_URLS.footballDataApi}/competitions/${LeagueCode}/${query}`;
 };
 
 export const CURRENT_SEASON_LEAGUES = `${BASE_URLS.rapidAPI}/leagues/current/`;
