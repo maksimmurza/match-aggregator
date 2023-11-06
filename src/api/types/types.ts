@@ -47,6 +47,9 @@ export interface LeagueScheduleApi {
     id: number;
     name: string;
     code: LeagueCode;
+    area: {
+      name: string;
+    };
   };
   matches: Array<FootballMatchApi>;
 }
@@ -57,7 +60,7 @@ export interface LeagueInfoApi {
   type: string;
   country: string;
   country_code: number | null;
-  season: YYYY;
+  season: number;
   season_start: DateString;
   season_end: DateString;
   logo: string;
@@ -68,4 +71,13 @@ export interface LeagueInfoApi {
 export interface LeaguesApi {
   results: number;
   leagues: Array<LeagueInfoApi>;
+}
+
+export interface LeagueTeamsApi {
+  results: number;
+  teams: Array<{
+    team_id: number;
+    name: string;
+    logo: string;
+  }>;
 }

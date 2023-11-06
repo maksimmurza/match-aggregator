@@ -6,7 +6,5 @@ export const getCurrentLeagues = async (): Promise<LeaguesApi> => {
   const url = CURRENT_SEASON_LEAGUES;
   const response = await apiProvider.rapidApi.get(url);
 
-  console.log(response.data);
-
-  return response.data;
+  return response.data.api;
 };

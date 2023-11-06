@@ -1,3 +1,5 @@
+import { DateTimeString } from './dates';
+
 export type MatchStatus =
   | 'SCHEDULED'
   | 'LIVE'
@@ -10,28 +12,22 @@ export type MatchStatus =
 
 export interface FootballMatch {
   id: number;
-  utcDate: string;
+  leagueId: FootballLeague['id'];
+  utcDate: DateTimeString;
   status: MatchStatus;
-  score: any;
-  homeTeam: {
-    id: number;
-    name: string;
-    logo: string;
-  };
-  awayTeam: {
-    id: number;
-    name: string;
-    logo: string;
-  };
+  // score: any;
+  homeTeam: FootballTeam;
+  awayTeam: FootballTeam;
 }
 
-export interface League {
+export interface FootballLeague {
   id: number;
   name: string;
   logo: string;
+  teams: Array<FootballTeam>;
 }
 
-export interface Team {
+export interface FootballTeam {
   id: number;
   name: string;
   logo: string;

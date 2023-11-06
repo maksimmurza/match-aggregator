@@ -13,4 +13,4 @@ export const COMPETITION_SCHEDULE = (
 export const CURRENT_SEASON_LEAGUES = `/leagues/current/`;
 
 // // rapid api
-export const TEAMS_INFO_URL = `/teams/league/`;
+export const TEAMS_INFO_URL = (leagueId: number) => `/teams/league/${leagueId}`;

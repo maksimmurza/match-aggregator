@@ -15,3 +15,11 @@ export const getLeagueSchedule = async (leagueCode: LeagueCode): Promise<LeagueS
     throw Error(API_TYPE_ERROR_MESSAGE);
   }
 };
+
+export const getFullSchedule = async (): Promise<Array<LeagueScheduleApi>> => {
+  return await Promise.all([
+    getLeagueSchedule(LEAGUES_CODES.ENGLISH_PREMIER_LEAGUE),
+    getLeagueSchedule(LEAGUES_CODES.SPANISH_LA_LIGA),
+    getLeagueSchedule(LEAGUES_CODES.CHAMPIONS_LEAGUE),
+  ]);
+};
