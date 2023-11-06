@@ -10,7 +10,4 @@ export const COMPETITION_SCHEDULE = (
 };
 
 // rapid api
-export const CURRENT_SEASON_LEAGUES = `/leagues/current/`;
-
-// // rapid api
-export const TEAMS_INFO_URL = (leagueId: number) => `/teams/league/${leagueId}`;
+export const COMPETITION_TEAMS = (leagueCode: LeagueCode) => `/competitions/${leagueCode}/teams`;

@@ -5,9 +5,9 @@ import { isLeagueScheduleApi } from '../types/typeGuards';
 import { LeagueCode, LeagueScheduleApi } from '../types/types';
 import { API_TYPE_ERROR_MESSAGE } from '../constants/errorMessages';
 
-export const getLeagueSchedule = async (leagueCode: LeagueCode): Promise<LeagueScheduleApi> => {
+const getLeagueSchedule = async (leagueCode: LeagueCode): Promise<LeagueScheduleApi> => {
   const url = COMPETITION_SCHEDULE(leagueCode);
-  const response = await apiProvider.footballDataApi.get(url);
+  const response = await apiProvider.get(url);
 
   if (isLeagueScheduleApi(response.data)) {
     return response.data;
@@ -17,9 +17,7 @@ export const getLeagueSchedule = async (leagueCode: LeagueCode): Promise<LeagueS
 };
 
 export const getFullSchedule = async (): Promise<Array<LeagueScheduleApi>> => {
-  return await Promise.all([
-    getLeagueSchedule(LEAGUES_CODES.ENGLISH_PREMIER_LEAGUE),
-    getLeagueSchedule(LEAGUES_CODES.SPANISH_LA_LIGA),
-    getLeagueSchedule(LEAGUES_CODES.CHAMPIONS_LEAGUE),
-  ]);
+  return await Promise.all(
+    Object.values(LEAGUES_CODES).map(leagueCode => getLeagueSchedule(leagueCode))
+  );
 };

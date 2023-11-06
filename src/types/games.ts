@@ -13,9 +13,9 @@ export type MatchStatus =
 export interface FootballMatch {
   id: number;
   leagueId: FootballLeague['id'];
-  utcDate: DateTimeString;
+  leagueLogo: string;
+  utcDate: string;
   status: MatchStatus;
-  // score: any;
   homeTeam: FootballTeam;
   awayTeam: FootballTeam;
 }

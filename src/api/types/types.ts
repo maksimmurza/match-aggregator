@@ -10,74 +10,40 @@ export type LeagueCode<T = typeof LEAGUES_CODES> = T[keyof T];
 interface FootballTeamApi {
   id: number;
   name: string;
+  crest: string;
 }
 
-interface ScoreApi {
-  homeTeam: number;
-  awayTeam: number;
+interface FootballCompetitionApi {
+  id: number;
+  name: string;
+  code: LeagueCode;
+  emblem: string;
 }
 
 export interface FootballMatchApi {
   id: number;
-  // season: {
-  //   id: number;
-  //   startDate: DateString;
-  //   endDate: DateString;
-  //   currentMatchday: number;
-  // };
-  utcDate: DateTimeString;
+  utcDate: string;
   status: MatchStatus;
-  // score: {
-  //   winner: string;
-  //   fullTime: ScoreApi;
-  //   halfTime: ScoreApi;
-  //   extraTime: ScoreApi;
-  //   penalties: ScoreApi;
-  // };
+  competition: FootballCompetitionApi;
   homeTeam: FootballTeamApi;
   awayTeam: FootballTeamApi;
 }
 
 export interface LeagueScheduleApi {
-  count: number;
   filters: {
-    status: Array<MatchStatus>;
+    status?: Array<MatchStatus>;
+    season?: string;
   };
-  competition: {
-    id: number;
-    name: string;
-    code: LeagueCode;
-    area: {
-      name: string;
-    };
-  };
+  competition: FootballCompetitionApi;
   matches: Array<FootballMatchApi>;
 }
 
-export interface LeagueInfoApi {
-  league_id: number;
-  name: string;
-  type: string;
-  country: string;
-  country_code: number | null;
-  season: number;
-  season_start: DateString;
-  season_end: DateString;
-  logo: string;
-  flag: string;
-  is_current: 1;
-}
-
-export interface LeaguesApi {
-  results: number;
-  leagues: Array<LeagueInfoApi>;
-}
-
 export interface LeagueTeamsApi {
-  results: number;
+  competition: FootballCompetitionApi;
   teams: Array<{
-    team_id: number;
+    id: number;
     name: string;
-    logo: string;
+    shortName: string;
+    crest: string;
   }>;
 }

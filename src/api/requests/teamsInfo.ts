@@ -1,10 +1,17 @@
 import apiProvider from '..';
-import { TEAMS_INFO_URL } from '../constants/endpoints';
-import { LeagueTeamsApi } from '../types/types';
+import { COMPETITION_TEAMS } from '../constants/endpoints';
+import { LEAGUES_CODES } from '../constants/requestOptions';
+import { LeagueCode, LeagueTeamsApi } from '../types/types';
 
-export const getTeamsInfo = async (leagueId: number): Promise<LeagueTeamsApi> => {
-  const url = TEAMS_INFO_URL(leagueId);
-  const response = await apiProvider.rapidApi.get(url);
+export const getLeagueTeams = async (leagueCode: LeagueCode): Promise<LeagueTeamsApi> => {
+  const url = COMPETITION_TEAMS(leagueCode);
+  const response = await apiProvider.get(url);
 
-  return response.data.api;
+  return response.data;
+};
+
+export const getLeaguesTeams = async (): Promise<Array<LeagueTeamsApi>> => {
+  return await Promise.all(
+    Object.values(LEAGUES_CODES).map(leagueCode => getLeagueTeams(leagueCode))
+  );
 };

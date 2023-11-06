@@ -1,73 +1,59 @@
 import GameCard from '@/components/GameCard';
 import ScrollableCardList from '@/layouts/ScrollableCardList';
 import { FootballLeague, FootballMatch } from '@/types/games';
-import { getFullSchedule, getLeagueSchedule } from '@/api/requests/gamesSchedule';
-import { FootballMatchApi, LeagueScheduleApi } from '@/api/types/types';
-import { LEAGUES_CODES } from '@/api/constants/requestOptions';
-import { useState } from 'react';
-import { getCurrentLeagues } from '@/api/requests/leaguesInfo';
-import { getTeamsInfo } from '@/api/requests/teamsInfo';
+import { getFullSchedule } from '@/api/requests/gamesSchedule';
+import { FootballMatchApi, LeagueScheduleApi, LeagueTeamsApi } from '@/api/types/types';
+import { getLeaguesTeams } from '@/api/requests/teamsInfo';
 
 export default async function Home() {
-  const scheduleArray: Array<LeagueScheduleApi> = await getFullSchedule();
+  const scheduleApi: Array<LeagueScheduleApi> = await getFullSchedule();
+  const leaguesTeamsApi: Array<LeagueTeamsApi> = await getLeaguesTeams();
 
-  const leaguesNames = scheduleArray.map(({ competition: { name } }) =>
-    name === 'Primera Division' ? 'La Liga' : name
-  );
+  const schedule: Array<FootballMatch> = scheduleApi
+    .reduce(
+      (allMatches: Array<FootballMatchApi>, response) => [...allMatches, ...response.matches],
+      []
+    )
+    .map(footballMatch => {
+      return {
+        id: footballMatch.id,
+        leagueId: footballMatch.competition.id,
+        leagueLogo: footballMatch.competition.emblem,
+        utcDate: footballMatch.utcDate,
+        status: footballMatch.status,
+        homeTeam: {
+          id: footballMatch.homeTeam.id,
+          name: footballMatch.homeTeam.name,
+          logo: footballMatch.homeTeam.crest,
+        },
+        awayTeam: {
+          id: footballMatch.homeTeam.id,
+          name: footballMatch.homeTeam.name,
+          logo: footballMatch.homeTeam.crest,
+        },
+      };
+    });
 
-  const locationRegexp = new RegExp(`World|Europe|England|Spain`);
-
-  const scheduleApi: Array<FootballMatchApi> = scheduleArray.reduce(
-    (allMatches: Array<FootballMatchApi>, response) => [...allMatches, ...response.matches],
-    []
-  );
-
-  const leaguesApi = (await getCurrentLeagues()).leagues.filter(league => {
-    const currentYear = new Date().getFullYear();
-    return (
-      league.season === currentYear &&
-      leaguesNames.includes(league.name) &&
-      league.country.match(locationRegexp)
-    );
-  });
-
-  const leaguesTeamsApi = await Promise.all(
-    leaguesApi.map(response => response.league_id).map(leagueId => getTeamsInfo(leagueId))
-  );
-
-  const leagues: Array<FootballLeague> = leaguesApi.map((response, index) => {
+  const leagues: Array<FootballLeague> = leaguesTeamsApi.map((response, index) => {
     return {
-      id: response.league_id,
-      name: response.name,
-      logo: response.logo,
-      teams: leaguesTeamsApi[index].teams.map(team => {
+      id: response.competition.id,
+      name: response.competition.name,
+      logo: response.competition.emblem,
+      teams: response.teams.map(team => {
         return {
-          id: team.team_id,
+          id: team.id,
           name: team.name,
-          logo: team.logo,
+          logo: team.crest,
         };
       }),
     };
   });
 
-  // const matches: Array<FootballMatch> = scheduleApi.map(response => {
-  //   return {
-  //     id: response.id,
-  //     leagueId: null,
-  //     utcDate: response.utcDate,
-  //     status: response.status,
-  //     homeTeam: response.homeTeam,
-  //     awayTeam: response.awayTeam,
-  //   };
-  // });
-
-  console.log(scheduleApi);
-
   return (
     <main /* className="flex min-h-screen flex-col items-center justify-between p-24" */>
-      {scheduleApi && (
+      {schedule && (
         <ScrollableCardList>
-          {scheduleApi.map((item: FootballMatchApi) => {
+          {schedule.map((item: FootballMatch) => {
             return <GameCard key={item.id} {...item} />;
           })}
         </ScrollableCardList>

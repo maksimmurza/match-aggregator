@@ -1,22 +1,10 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { BASE_URLS, AUTH_HEADERS } from '../constants/requestOptions';
+import { AUTH_HEADERS } from '../constants/requestOptions';
 
-const addHeaders = (config: InternalAxiosRequestConfig, headers: Record<string, string>) => {
-  Object.keys(headers).forEach(headerKey => {
-    config.headers.set(headerKey, headers[headerKey as keyof typeof headers]);
+const axiosRequestInterceptor = (config: InternalAxiosRequestConfig) => {
+  Object.keys(AUTH_HEADERS).forEach(headerKey => {
+    config.headers.set(headerKey, AUTH_HEADERS[headerKey as keyof typeof AUTH_HEADERS]);
   });
-};
-
-const axiosFootballDataApiRequestInterceptor = (config: InternalAxiosRequestConfig) => {
-  const authHeaders = AUTH_HEADERS.footballDataApi;
-  addHeaders(config, authHeaders);
-
-  return config;
-};
-
-const axiosRapidApiRequestInterceptor = (config: InternalAxiosRequestConfig) => {
-  const authHeaders = AUTH_HEADERS.rapidAPI;
-  addHeaders(config, authHeaders);
 
   return config;
 };
@@ -34,8 +22,7 @@ const axiosResponseErrorHandler = (error: AxiosError) => {
 };
 
 export {
-  axiosFootballDataApiRequestInterceptor,
-  axiosRapidApiRequestInterceptor,
+  axiosRequestInterceptor,
   axiosRequestErrorHandler,
   axiosResponseInterceptor,
   axiosResponseErrorHandler,
