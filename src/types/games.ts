@@ -1,4 +1,12 @@
-export type MatchStatus = 'SCHEDULED' | 'ACTIVE';
+export type MatchStatus =
+  | 'SCHEDULED'
+  | 'LIVE'
+  | 'IN_PLAY'
+  | 'PAUSED'
+  | 'FINISHED'
+  | 'POSTPONED'
+  | 'SUSPENDED'
+  | 'CANCELLED';
 
 export interface FootballMatch {
   id: number;
