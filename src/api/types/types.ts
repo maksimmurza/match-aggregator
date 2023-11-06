@@ -1,4 +1,4 @@
-import { DateString, DateTimeString } from '@/types/dates';
+import { DateString, DateTimeString, YYYY } from '@/types/dates';
 import { LEAGUES_CODES, AUTH_HEADERS } from '../constants/requestOptions';
 import { MatchStatus } from '@/types/games';
 
@@ -49,4 +49,23 @@ export interface LeagueScheduleApi {
     code: LeagueCode;
   };
   matches: Array<FootballMatchApi>;
+}
+
+export interface LeagueInfoApi {
+  league_id: number;
+  name: string;
+  type: string;
+  country: string;
+  country_code: number | null;
+  season: YYYY;
+  season_start: DateString;
+  season_end: DateString;
+  logo: string;
+  flag: string;
+  is_current: 1;
+}
+
+export interface LeaguesApi {
+  results: number;
+  leagues: Array<LeagueInfoApi>;
 }

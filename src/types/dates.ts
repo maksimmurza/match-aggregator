@@ -11,7 +11,7 @@ type ZeroToNine = 0 | OneToNine;
 // NumericRange is for exmple here, in case we want to create a range,
 // but in our case it's not necessary, because... 2100+ year, really?
 type AnyYYYY = `${NumericRange<20, 99>}${ZeroToNine}${ZeroToNine}`;
-type YYYY = `20${ZeroToNine}${ZeroToNine}`;
+export type YYYY = `20${ZeroToNine}${ZeroToNine}`;
 type MM = `0${OneToNine}` | `1${0 | 1 | 2}`;
 type DD = `${0}${OneToNine}` | `${1 | 2}${ZeroToNine}` | `3${0 | 1}`;
 

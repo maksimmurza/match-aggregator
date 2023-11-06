@@ -7,10 +7,10 @@ import { API_TYPE_ERROR_MESSAGE } from '../constants/errorMessages';
 
 export const getEnglishPremierLeagueSchedule = async (): Promise<LeagueScheduleApi> => {
   const url = COMPETITION_SCHEDULE(LEAGUES_CODES.ENGLISH_PREMIER_LEAGUE);
-  const response = await apiProvider.get(url);
+  const response = await apiProvider.footballDataApi.get(url);
 
-  if (isLeagueScheduleApi(response)) {
-    return response;
+  if (isLeagueScheduleApi(response.data)) {
+    return response.data;
   } else {
     throw Error(API_TYPE_ERROR_MESSAGE);
   }

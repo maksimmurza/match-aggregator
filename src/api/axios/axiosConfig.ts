@@ -1,20 +1,43 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import {
-  axiosRequestInterceptor,
+  axiosFootballDataApiRequestInterceptor,
+  axiosRapidApiRequestInterceptor,
   axiosResponseInterceptor,
   axiosRequestErrorHandler,
   axiosResponseErrorHandler,
 } from './axiosUtils';
+import { BASE_URLS } from '../constants/requestOptions';
 
-const axiosConfig = {
-  // we have two APIs, so we can't define baseURL
+const axiosFootballDataApiConfig = {
+  baseURL: BASE_URLS.footballDataApi,
 };
 
-const axiosInstance = axios.create(axiosConfig);
+const axiosRapidApiConfig = {
+  baseURL: BASE_URLS.rapidAPI,
+};
 
-axiosInstance.interceptors.request.use(axiosRequestInterceptor, axiosRequestErrorHandler);
-axiosInstance.interceptors.response.use(axiosResponseInterceptor, axiosResponseErrorHandler);
+const axiosFootballDataApiInstance = axios.create(axiosFootballDataApiConfig);
+const axiosRapidApiInstance = axios.create(axiosRapidApiConfig);
+
+axiosFootballDataApiInstance.interceptors.request.use(
+  axiosFootballDataApiRequestInterceptor,
+  axiosRequestErrorHandler
+);
+axiosFootballDataApiInstance.interceptors.response.use(
+  axiosResponseInterceptor,
+  axiosResponseErrorHandler
+);
+
+axiosRapidApiInstance.interceptors.request.use(
+  axiosRapidApiRequestInterceptor,
+  axiosRequestErrorHandler
+);
+axiosRapidApiInstance.interceptors.response.use(
+  axiosResponseInterceptor,
+  axiosResponseErrorHandler
+);
 
 export const axiosClient = {
-  get: (url: string, config?: AxiosRequestConfig) => axiosInstance.get(url, config),
+  footballDataApi: axiosFootballDataApiInstance,
+  rapidApi: axiosRapidApiInstance,
 };

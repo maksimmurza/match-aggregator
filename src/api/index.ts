@@ -1,5 +1,11 @@
+import { AxiosInstance } from 'axios';
 import { axiosClient } from './axios/axiosConfig';
 
-const apiProvider = axiosClient;
+interface ApiProvider<T> {
+  footballDataApi: T;
+  rapidApi: T;
+}
+
+const apiProvider: ApiProvider<AxiosInstance> = axiosClient;
 
 export default apiProvider;

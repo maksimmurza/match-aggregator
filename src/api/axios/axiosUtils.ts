@@ -1,24 +1,22 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { BASE_URLS, AUTH_HEADERS } from '../constants/requestOptions';
 
-const getAuthHeaders = (url: string) => {
-  if (!url) {
-    return null;
-  }
-
-  return url.includes(BASE_URLS.rapidAPI) ? AUTH_HEADERS.rapidAPI : AUTH_HEADERS.footballDataApi;
+const addHeaders = (config: InternalAxiosRequestConfig, headers: Record<string, string>) => {
+  Object.keys(headers).forEach(headerKey => {
+    config.headers.set(headerKey, headers[headerKey as keyof typeof headers]);
+  });
 };
 
-const axiosRequestInterceptor = (config: InternalAxiosRequestConfig) => {
-  const authHeaders = getAuthHeaders(config.url || '');
+const axiosFootballDataApiRequestInterceptor = (config: InternalAxiosRequestConfig) => {
+  const authHeaders = AUTH_HEADERS.footballDataApi;
+  addHeaders(config, authHeaders);
 
-  if (authHeaders === null) {
-    return config;
-  }
+  return config;
+};
 
-  Object.keys(authHeaders).forEach(headerKey => {
-    config.headers.set(headerKey, authHeaders[headerKey as keyof typeof authHeaders]);
-  });
+const axiosRapidApiRequestInterceptor = (config: InternalAxiosRequestConfig) => {
+  const authHeaders = AUTH_HEADERS.rapidAPI;
+  addHeaders(config, authHeaders);
 
   return config;
 };
@@ -28,7 +26,7 @@ const axiosRequestErrorHandler = (error: AxiosError) => {
 };
 
 const axiosResponseInterceptor = (response: AxiosResponse) => {
-  return response.data;
+  return response;
 };
 
 const axiosResponseErrorHandler = (error: AxiosError) => {
@@ -36,7 +34,8 @@ const axiosResponseErrorHandler = (error: AxiosError) => {
 };
 
 export {
-  axiosRequestInterceptor,
+  axiosFootballDataApiRequestInterceptor,
+  axiosRapidApiRequestInterceptor,
   axiosRequestErrorHandler,
   axiosResponseInterceptor,
   axiosResponseErrorHandler,
