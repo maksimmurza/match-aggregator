@@ -24,7 +24,7 @@ const isFootballMatchApi = (object: unknown): object is FootballMatchApi => {
 };
 
 const isLeagueScheduleApi = (object: unknown): object is LeagueScheduleApi => {
-  const necessaryProperties = ['count', 'filters', 'competition', 'matches'];
+  const necessaryProperties = [/* 'count',  */ 'filters', 'competition', 'matches'];
   const allPropertiesPersist = hasNecessaryProperties(object, necessaryProperties);
 
   if (

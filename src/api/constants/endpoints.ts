@@ -1,13 +1,16 @@
 import { BASE_URLS } from './requestOptions';
 import { LeagueCode } from '../types/types';
 
+// football-data api
 export const COMPETITION_SCHEDULE = (
-  LeagueCode: LeagueCode,
+  leagueCode: LeagueCode,
   query: string = 'matches?status=SCHEDULED'
 ) => {
-  return `${BASE_URLS.footballDataApi}/competitions/${LeagueCode}/${query}`;
+  return `/competitions/${leagueCode}/${query}`;
 };
 
-export const CURRENT_SEASON_LEAGUES = `${BASE_URLS.rapidAPI}/leagues/current/`;
+// rapid api
+export const CURRENT_SEASON_LEAGUES = `/leagues/current/`;
 
-export const TEAMS_INFO_URL = `${BASE_URLS.rapidAPI}/teams/league/`;
+// // rapid api
+export const TEAMS_INFO_URL = `/teams/league/`;
