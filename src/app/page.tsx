@@ -27,9 +27,9 @@ export default async function Home() {
           logo: footballMatch.homeTeam.crest,
         },
         awayTeam: {
-          id: footballMatch.homeTeam.id,
-          name: footballMatch.homeTeam.name,
-          logo: footballMatch.homeTeam.crest,
+          id: footballMatch.awayTeam.id,
+          name: footballMatch.awayTeam.name,
+          logo: footballMatch.awayTeam.crest,
         },
       };
     });
@@ -48,6 +48,8 @@ export default async function Home() {
       }),
     };
   });
+
+  console.log(schedule);
 
   return (
     <main /* className="flex min-h-screen flex-col items-center justify-between p-24" */>
