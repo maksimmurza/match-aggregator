@@ -5,7 +5,7 @@ import {
   axiosRequestErrorHandler,
   axiosResponseErrorHandler,
 } from './axiosUtils';
-import { BASE_URLS } from '../constants/requestOptions';
+import { BASE_URLS } from '../../constants/requestOptions';
 
 const axiosConfig = {
   baseURL: BASE_URLS,
