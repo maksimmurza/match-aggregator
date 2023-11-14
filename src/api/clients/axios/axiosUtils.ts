@@ -1,5 +1,5 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { AUTH_HEADERS } from '../constants/requestOptions';
+import { AUTH_HEADERS } from '../../constants/requestOptions';
 
 const axiosRequestInterceptor = (config: InternalAxiosRequestConfig) => {
   Object.keys(AUTH_HEADERS).forEach(headerKey => {
@@ -14,7 +14,7 @@ const axiosRequestErrorHandler = (error: AxiosError) => {
 };
 
 const axiosResponseInterceptor = (response: AxiosResponse) => {
-  return response;
+  return response.data;
 };
 
 const axiosResponseErrorHandler = (error: AxiosError) => {

@@ -1,8 +1,11 @@
 import React, { FC, PropsWithChildren } from 'react';
 
-const ScrollableCardList: FC<PropsWithChildren<any>> = ({ children }) => {
+const ScrollableCardList: FC<PropsWithChildren<{ className?: string }>> = ({
+  children,
+  className = '',
+}) => {
   return (
-    <div className="shadow-sm overflow-y-auto overflow-x-hidden flex-col align-items-stretch">
+    <div className={`[&>*]:w-full height-full shadow-lg overflow-y-auto rounded ` + className}>
       {children}
     </div>
   );

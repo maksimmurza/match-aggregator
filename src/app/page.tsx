@@ -7,7 +7,7 @@ import { getLeaguesTeams } from '@/api/requests/teamsInfo';
 
 export default async function Home() {
   const scheduleApi: Array<LeagueScheduleApi> = await getFullSchedule();
-  const leaguesTeamsApi: Array<LeagueTeamsApi> = await getLeaguesTeams();
+  // const leaguesTeamsApi: Array<LeagueTeamsApi> = await getLeaguesTeams();
 
   const schedule: Array<FootballMatch> = scheduleApi
     .reduce(
@@ -34,32 +34,33 @@ export default async function Home() {
       };
     });
 
-  const leagues: Array<FootballLeague> = leaguesTeamsApi.map((response, index) => {
-    return {
-      id: response.competition.id,
-      name: response.competition.name,
-      logo: response.competition.emblem,
-      teams: response.teams.map(team => {
-        return {
-          id: team.id,
-          name: team.name,
-          logo: team.crest,
-        };
-      }),
-    };
-  });
+  // const leagues: Array<FootballLeague> = leaguesTeamsApi.map((response, index) => {
+  //   return {
+  //     id: response.competition.id,
+  //     name: response.competition.name,
+  //     logo: response.competition.emblem,
+  //     teams: response.teams.map(team => {
+  //       return {
+  //         id: team.id,
+  //         name: team.name,
+  //         logo: team.crest,
+  //       };
+  //     }),
+  //   };
+  // });
 
-  console.log(schedule);
+  // console.log(schedule);
 
   return (
-    <main /* className="flex min-h-screen flex-col items-center justify-between p-24" */>
+    <main className="flex justify-around gap-10 w-screen h-screen bg-gray-100 overflow-hidden">
       {schedule && (
-        <ScrollableCardList>
+        <ScrollableCardList className="m-4 h-[calc(100vh-2rem)]">
           {schedule.map((item: FootballMatch) => {
-            return <GameCard key={item.id} {...item} />;
+            return <GameCard key={item.id} {...item} className="border-b border-gray-300" />;
           })}
         </ScrollableCardList>
       )}
+      <div>Leagues</div>
     </main>
   );
 }
