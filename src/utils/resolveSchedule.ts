@@ -17,11 +17,13 @@ const resolveSchedule = (scheduleResponse: Array<LeagueScheduleResponse>): Array
         status: footballMatch.status,
         homeTeam: {
           id: footballMatch.homeTeam.id,
+          leagueId: footballMatch.competition.id,
           name: footballMatch.homeTeam.name,
           logo: footballMatch.homeTeam.crest,
         },
         awayTeam: {
           id: footballMatch.awayTeam.id,
+          leagueId: footballMatch.competition.id,
           name: footballMatch.awayTeam.name,
           logo: footballMatch.awayTeam.crest,
         },
