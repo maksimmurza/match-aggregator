@@ -1,5 +1,5 @@
 import { API_TYPE_ERROR_MESSAGE } from '../constants/errorMessages';
-import { FootballMatchApi, LeagueScheduleApi } from '../types/types';
+import { FootballMatchApi, LeagueScheduleResponse } from '../types/types';
 
 const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -23,7 +23,7 @@ const isFootballMatchApi = (object: unknown): object is FootballMatchApi => {
   return true;
 };
 
-const isLeagueScheduleApi = (object: unknown): object is LeagueScheduleApi => {
+const isLeagueScheduleResponse = (object: unknown): object is LeagueScheduleResponse => {
   const necessaryProperties = [/* 'count',  */ 'filters', 'competition', 'matches'];
   const allPropertiesPersist = hasNecessaryProperties(object, necessaryProperties);
 
@@ -37,4 +37,4 @@ const isLeagueScheduleApi = (object: unknown): object is LeagueScheduleApi => {
   return true;
 };
 
-export { isLeagueScheduleApi };
+export { isLeagueScheduleResponse };

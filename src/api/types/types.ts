@@ -29,7 +29,7 @@ export interface FootballMatchApi {
   awayTeam: FootballTeamApi;
 }
 
-export interface LeagueScheduleApi {
+export interface LeagueScheduleResponse {
   filters: {
     status?: Array<MatchStatus>;
     season?: string;
@@ -38,7 +38,7 @@ export interface LeagueScheduleApi {
   matches: Array<FootballMatchApi>;
 }
 
-export interface LeagueTeamsApi {
+export interface LeagueTeamsResponse {
   competition: FootballCompetitionApi;
   teams: Array<{
     id: number;

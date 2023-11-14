@@ -13,18 +13,18 @@ const TabsPanel: FC<PropsWithChildren<TabsPanelProps>> = ({ data }) => {
   return (
     <Tabs>
       <TabsHeader
-        className="bg-transparent"
+        className="bg-transparent mb-2 pl-0"
         indicatorProps={{
-          className: 'bg-gray-900/10 shadow-none !text-gray-900',
+          className: 'bg-white shadow-none !text-gray-900 rounded-lg',
         }}
       >
-        {data.map(({ tabLabel, tabValue }) => (
-          <Tab key={tabValue} value={tabValue}>
+        {data.map(({ tabLabel, tabValue }, index) => (
+          <Tab className="px-4" key={tabValue} value={tabValue}>
             {tabLabel}
           </Tab>
         ))}
       </TabsHeader>
-      <TabsBody>
+      <TabsBody className="bg-white rounded-lg h-full overflow-y-auto">
         {data.map(({ tabValue, tabContent }) => (
           <TabPanel key={tabValue} value={tabValue}>
             {tabContent}
