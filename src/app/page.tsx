@@ -4,10 +4,11 @@ import { FootballLeague, FootballMatch } from '@/types/games';
 import { getFullSchedule } from '@/api/requests/gamesSchedule';
 import { FootballMatchApi, LeagueScheduleApi, LeagueTeamsApi } from '@/api/types/types';
 import { getLeaguesTeams } from '@/api/requests/teamsInfo';
+import LeaguesTabs from '@/components/LeaguesTabs';
 
 export default async function Home() {
   const scheduleApi: Array<LeagueScheduleApi> = await getFullSchedule();
-  // const leaguesTeamsApi: Array<LeagueTeamsApi> = await getLeaguesTeams();
+  const leaguesTeamsApi: Array<LeagueTeamsApi> = await getLeaguesTeams();
 
   const schedule: Array<FootballMatch> = scheduleApi
     .reduce(
@@ -34,22 +35,20 @@ export default async function Home() {
       };
     });
 
-  // const leagues: Array<FootballLeague> = leaguesTeamsApi.map((response, index) => {
-  //   return {
-  //     id: response.competition.id,
-  //     name: response.competition.name,
-  //     logo: response.competition.emblem,
-  //     teams: response.teams.map(team => {
-  //       return {
-  //         id: team.id,
-  //         name: team.name,
-  //         logo: team.crest,
-  //       };
-  //     }),
-  //   };
-  // });
-
-  // console.log(schedule);
+  const leagues: Array<FootballLeague> = leaguesTeamsApi.map((response, index) => {
+    return {
+      id: response.competition.id,
+      name: response.competition.name,
+      logo: response.competition.emblem,
+      teams: response.teams.map(team => {
+        return {
+          id: team.id,
+          name: team.name,
+          logo: team.crest,
+        };
+      }),
+    };
+  });
 
   return (
     <main className="flex justify-around gap-10 w-screen h-screen bg-gray-100 overflow-hidden">
@@ -60,7 +59,7 @@ export default async function Home() {
           })}
         </ScrollableCardList>
       )}
-      <div>Leagues</div>
+      <LeaguesTabs leagues={leagues} />
     </main>
   );
 }
