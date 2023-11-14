@@ -1,26 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
+
+'use client';
+
 import { FootballLeague } from '@/types/games';
 import React, { FC, PropsWithChildren } from 'react';
 import { Checkbox } from '../app/materialTailwind';
+import { FaMinus } from 'react-icons/fa';
 
 interface LeagueCheckboxProps {
   league: FootballLeague;
-  checked: boolean;
+  state: 'checked' | 'unchecked' | 'indeterminate';
   onChange: (leagueId: FootballLeague['id'], newState: boolean) => void;
 }
 
 const LeagueCheckbox: FC<PropsWithChildren<LeagueCheckboxProps>> = ({
   league,
-  checked,
+  state,
   onChange,
 }) => {
   return (
-    <div>
+    <div className="flex justify-center items-center">
       <Checkbox
         defaultChecked
         crossOrigin={false}
-        label={<img className="w-10" src={league.logo} alt={league.name} />}
+        checked={state !== 'unchecked'}
+        icon={state === 'indeterminate' && <FaMinus />}
+        onChange={() => onChange(league.id, state === 'unchecked' ? true : false)}
       />
+      <img className="w-10" src={league.logo} alt={league.name} />
     </div>
   );
 };

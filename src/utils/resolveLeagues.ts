@@ -10,6 +10,7 @@ const resolveLeagues = (leaguesResponse: Array<LeagueTeamsResponse>): Array<Foot
       teams: response.teams.map(team => {
         return {
           id: team.id,
+          leagueId: response.competition.id,
           name: team.name,
           logo: team.crest,
         };

@@ -29,6 +29,7 @@ export interface FootballLeague {
 
 export interface FootballTeam {
   id: number;
+  leagueId: FootballLeague['id'];
   name: string;
   logo: string;
 }
