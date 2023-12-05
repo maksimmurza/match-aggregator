@@ -30,9 +30,10 @@
     }
   },
   "include": [
-    "next-env.d.ts",
+    "frontend/next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "frontend/.next/types/**/*.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
