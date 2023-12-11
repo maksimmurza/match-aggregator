@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { FootballMatchApi } from '@/api/types/types';
 import { FootballMatch } from '@/types/games';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, memo } from 'react';
 import Image from 'next/image';
 import { prettifyDate } from '@/utils/date';
 import Label from './DateLabel';
@@ -9,6 +9,7 @@ import { Typography } from '../app/materialTailwind';
 import TeamName from './TeamName';
 import TimeLabel from './TimeLabel';
 import DateLabel from './DateLabel';
+import useRenderedCounter from '@/hooks/useRenderCounter';
 
 const GameCard: FC<PropsWithChildren<FootballMatch & { className?: string }>> = ({
 	status,
@@ -40,4 +41,4 @@ const GameCard: FC<PropsWithChildren<FootballMatch & { className?: string }>> = 
 	);
 };
 
-export default GameCard;
+export default memo(GameCard);
