@@ -9,7 +9,6 @@ import { Typography } from '../app/materialTailwind';
 import TeamName from './TeamName';
 import TimeLabel from './TimeLabel';
 import DateLabel from './DateLabel';
-import useRenderedCounter from '@/hooks/useRenderCounter';
 
 const GameCard: FC<PropsWithChildren<FootballMatch & { className?: string }>> = ({
 	status,
