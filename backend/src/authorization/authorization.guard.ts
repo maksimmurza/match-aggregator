@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+	CanActivate,
+	ExecutionContext,
+	Injectable,
+	UnauthorizedException,
+} from '@nestjs/common';
 import { GetVerificationKey, expressJwtSecret } from 'jwks-rsa';
 import { promisify } from 'util';
 import { expressjwt as jwt } from 'express-jwt';

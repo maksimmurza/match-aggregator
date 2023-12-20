@@ -10,8 +10,7 @@ import {
 } from '../app/materialTailwind';
 import { HiBars3 } from 'react-icons/hi2';
 import { IoCloseOutline } from 'react-icons/io5';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import Link from 'next/link';
+import ProfileClient from './ProfileClient';
 
 const NavbarItem: FC<PropsWithChildren> = ({ children }) => {
 	return (
@@ -32,36 +31,6 @@ const NavbarList: FC = () => {
 			<NavbarItem>Hightlights</NavbarItem>
 			<NavbarItem>About</NavbarItem>
 		</ul>
-	);
-};
-
-const ProfileClient: FC = () => {
-	const { user, error, isLoading } = useUser();
-
-	if (isLoading) return <div>Loading...</div>;
-	if (error) return <div>{error.message}</div>;
-
-	if (!user) {
-		return (
-			<>
-				<a href="/api/auth/login">
-					<Button fullWidth variant="text" size="sm" className="">
-						<span>Log In</span>
-					</Button>
-				</a>
-				<a href="/api/auth/login">
-					<Button fullWidth variant="gradient" size="sm" className="">
-						<span>Sign up</span>
-					</Button>
-				</a>
-			</>
-		);
-	}
-
-	return (
-		<div>
-			{user.name}, <Link href="/api/auth/logout">Logout</Link>
-		</div>
 	);
 };
 

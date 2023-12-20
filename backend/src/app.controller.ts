@@ -1,6 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, Response, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthorizationGuard } from './authorization/authorization.guard';
+import { Request as Req, Response as Res } from 'express';
 
 @Controller()
 export class AppController {
@@ -13,7 +14,7 @@ export class AppController {
 
 	@UseGuards(AuthorizationGuard)
 	@Get('/user-preferences')
-	getUserPreferences(): string {
-		return this.appService.getUserPreferences();
+	getUserPreferences(@Request() req: Req, @Response() res: Res) {
+		this.appService.getUserPreferences(req, res);
 	}
 }

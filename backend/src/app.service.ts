@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class AppService {
-	getUserPreferences(): string {
-		return 'protected string';
+	getUserPreferences(req: Request, res: Response) {
+		res.json({ message: 'protected user message' });
 	}
 }

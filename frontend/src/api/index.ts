@@ -1,6 +1,7 @@
-import fetchApiClient from './clients/fetchAPI';
-import axiosClient from './clients/axios/axiosConfig';
+import DataApiProvider from './providers/DataApiProvider';
+// import ServerApiProvider from './providers/ServerApiProvider';
 
-const apiProvider = fetchApiClient;
+const dataApiProvider = new DataApiProvider();
+// const serverApiProvider = new ServerApiProvider();
 
-export default apiProvider;
+export { dataApiProvider /* , serverApiProvider */ };
