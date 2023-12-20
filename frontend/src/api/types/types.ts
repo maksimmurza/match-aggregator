@@ -1,5 +1,5 @@
 import { DateString, DateTimeString, YYYY } from '@/types/dates';
-import { LEAGUES_CODES, AUTH_HEADERS } from '../constants/requestOptions';
+import { LEAGUES_CODES } from '../constants/requestOptions';
 import { MatchStatus } from '@/types/games';
 
 // type equals set of LEAGUES_CODES values
