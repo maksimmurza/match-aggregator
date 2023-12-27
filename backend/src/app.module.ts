@@ -4,10 +4,13 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { UserPreferencesModule } from './users-preferences/user-preferences.module';
+import { UserPreferences } from './users-preferences/user-preferences.model';
 
 @Module({
 	imports: [
 		AuthorizationModule,
+		UserPreferencesModule,
 		ConfigModule.forRoot(),
 		SequelizeModule.forRoot({
 			dialect: 'mysql',
@@ -16,7 +19,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 			username: process.env.MYSQL_USER,
 			password: process.env.MYSQL_PASSWORD,
 			database: process.env.MYSQL_DATABASE,
-			models: [],
+			models: [UserPreferences],
 		}),
 	],
 	controllers: [AppController],

@@ -23,8 +23,6 @@ const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 	selectedTeams,
 	setSelectedTeams,
 }) => {
-	const [pref, setPref] = useState<string>();
-
 	const onChangeLeagueState = useCallback(
 		(leagueId: FootballLeague['id'], newCheckboxState: boolean) => {
 			setSelectedTeams((prevState: FootballLeaguesValues) => {
@@ -70,20 +68,6 @@ const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 		}
 	};
 
-	// test Next route API as proxy for external API
-	useEffect(() => {
-		const getUserPreferences = async () => {
-			const response = await fetch('http://localhost:3000/api/user-preferences', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-			const userPreferences = await response.json();
-			setPref(userPreferences.message);
-		};
-		setTimeout(getUserPreferences, 2000);
-	}, []);
-
 	const tabsData = leagues.map((league) => {
 		return {
 			tabLabel: (
@@ -111,12 +95,7 @@ const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 		};
 	});
 
-	return (
-		<>
-			{pref && <span> {pref}</span>}
-			<TabsPanel data={tabsData} />
-		</>
-	);
+	return <TabsPanel data={tabsData} />;
 };
 
 export default LeaguesTabs;

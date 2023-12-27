@@ -48,4 +48,6 @@ export interface LeagueTeamsResponse {
 	}>;
 }
 
-export type UserPreferences = any;
+export type UserPreferences = {
+	unselectedTeams: Array<string>;
+};

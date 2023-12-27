@@ -37,6 +37,7 @@ export class AuthorizationGuard implements CanActivate {
 
 		try {
 			await checkJWT(request, response);
+			request.userId = request.auth.sub;
 			return true;
 		} catch (error) {
 			throw new UnauthorizedException(error);
