@@ -21,12 +21,10 @@ interface MainScreenProps {
 
 const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues }) => {
 	const { user } = useUser();
-	const { selectedTeams, setSelectedTeams, isGameSelected } = useUserPreferences(
-		user,
-		leagues,
-	);
+	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameShown } =
+		useUserPreferences(user, leagues);
 
-	const games = schedule?.filter(isGameSelected);
+	const displayedGames = schedule?.filter(isGameShown);
 
 	return (
 		<div className="flex justify-center gap-1 w-screen h-screen bg-gray-100 overflow-hidden">
@@ -34,8 +32,8 @@ const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues 
 				className="m-4 h-[calc(100vh-2rem)] bg-white"
 				style={{ width: '900px' }}
 			>
-				{games?.length > 0 ? (
-					games.map((item: FootballMatch) => {
+				{displayedGames?.length > 0 ? (
+					displayedGames.map((item: FootballMatch) => {
 						return (
 							<GameCard key={item.id} {...item} className="border-b border-gray-300" />
 						);
@@ -50,6 +48,7 @@ const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues 
 					leagues={leagues}
 					selectedTeams={selectedTeams}
 					setSelectedTeams={setSelectedTeams}
+					updateSelectedTeams={updateSelectedTeams}
 				/>
 			</div>
 		</div>

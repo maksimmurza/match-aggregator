@@ -1,4 +1,5 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { FootballLeaguesValues } from '../types';
 
 @Table
 export class UserPreferences extends Model {
@@ -12,6 +13,6 @@ export class UserPreferences extends Model {
 	@Column({ type: DataType.STRING })
 	userId: string;
 
-	@Column({ defaultValue: [], type: DataType.JSON })
-	unselectedTeams: Array<string>;
+	@Column({ type: DataType.JSON })
+	selectedTeams: FootballLeaguesValues;
 }

@@ -7,19 +7,34 @@ export class UserPreferencesService {
 	constructor(
 		@InjectModel(UserPreferences)
 		private userPreferencesModel: typeof UserPreferences,
-	) {}
+	) {
+		userPreferencesModel.sync();
+	}
 
 	async getUserPreferences(userId: string): Promise<UserPreferences> {
-		const [userPreference] = await this.userPreferencesModel.findOrCreate({
+		const [userPreferences] = await this.userPreferencesModel.findOrCreate({
 			where: {
 				userId,
 			},
 			defaults: {
 				userId,
-				unselectedTeams: [],
+				selectedTeams: null,
 			},
 		});
 
-		return userPreference;
+		return userPreferences;
+	}
+
+	async putSelectedTeams(userId: string, payload: any) {
+		const result = await this.userPreferencesModel.update(
+			{ selectedTeams: payload },
+			{
+				where: {
+					userId,
+				},
+			},
+		);
+
+		return result;
 	}
 }
