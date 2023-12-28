@@ -1,0 +1,7 @@
+const LEAGUES_CODES = {
+	ENGLISH_PREMIER_LEAGUE: 'PL',
+	SPANISH_LA_LIGA: 'PD',
+	CHAMPIONS_LEAGUE: 'CL',
+} as const;
+
+export { LEAGUES_CODES };
