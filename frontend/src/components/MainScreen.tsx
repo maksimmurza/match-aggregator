@@ -27,11 +27,8 @@ const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues 
 	const displayedGames = schedule?.filter(isGameShown);
 
 	return (
-		<div className="flex justify-center gap-1 w-screen h-screen bg-gray-100 overflow-hidden">
-			<ScrollableCardList
-				className="m-4 h-[calc(100vh-2rem)] bg-white"
-				style={{ width: '900px' }}
-			>
+		<div className="flex p-4 justify-center gap-4 w-screen h-screen overflow-hidden">
+			<ScrollableCardList className="bg-white" style={{ width: '900px' }}>
 				{displayedGames?.length > 0 ? (
 					displayedGames.map((item: FootballMatch) => {
 						return (
@@ -43,7 +40,7 @@ const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues 
 				)}
 			</ScrollableCardList>
 
-			<div className="m-4 h-[calc(100vh-2rem)] overflow-hidden relative">
+			<div className="overflow-hidden relative">
 				<LeaguesTabs
 					leagues={leagues}
 					selectedTeams={selectedTeams}
