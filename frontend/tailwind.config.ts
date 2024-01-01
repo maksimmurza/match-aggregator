@@ -20,6 +20,7 @@ const config: object = withMT({
 				2: '2',
 				3: '3',
 			},
+			minWidth: {},
 		},
 	},
 	plugins: [],

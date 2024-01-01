@@ -21,7 +21,7 @@ const GameCard: FC<PropsWithChildren<FootballMatch & { className?: string }>> = 
 	const { date, time } = prettifyDate(utcDate);
 
 	return (
-		<div className={`p-4 bg-white ` + className}>
+		<div className={`p-4 bg-white w-full ` + className}>
 			<div className="flex gap-2">
 				<DateLabel>{date}</DateLabel>
 				<TimeLabel>{time}</TimeLabel>

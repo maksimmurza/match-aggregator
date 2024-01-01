@@ -16,12 +16,14 @@ interface LeagueTabsProps {
 	leagues: Array<FootballLeague>;
 	selectedTeams: FootballLeaguesValues;
 	setSelectedTeams: ReactSetState<FootballLeaguesValues>;
+	updateSelectedTeams: (updatedPayload: FootballLeaguesValues) => void;
 }
 
 const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 	leagues,
 	selectedTeams,
 	setSelectedTeams,
+	updateSelectedTeams,
 }) => {
 	const onChangeLeagueState = useCallback(
 		(leagueId: FootballLeague['id'], newCheckboxState: boolean) => {
@@ -31,6 +33,7 @@ const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 				teamsIds.forEach((teamId) => {
 					newState[leagueId][teamId] = newCheckboxState;
 				});
+				updateSelectedTeams(newState);
 				return newState;
 			});
 		},
@@ -46,6 +49,7 @@ const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 			setSelectedTeams((prevState: FootballLeaguesValues) => {
 				let newState = { ...prevState };
 				newState[leagueId][teamId] = newCheckboxState;
+				updateSelectedTeams(newState);
 				return newState;
 			});
 		},

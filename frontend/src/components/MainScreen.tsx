@@ -21,21 +21,16 @@ interface MainScreenProps {
 
 const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues }) => {
 	const { user } = useUser();
-	const { selectedTeams, setSelectedTeams, isGameSelected } = useUserPreferences(
-		user,
-		leagues,
-	);
+	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameShown } =
+		useUserPreferences(user, leagues);
 
-	const games = schedule?.filter(isGameSelected);
+	const displayedGames = schedule?.filter(isGameShown);
 
 	return (
-		<div className="flex justify-center gap-1 w-screen h-screen bg-gray-100 overflow-hidden">
-			<ScrollableCardList
-				className="m-4 h-[calc(100vh-2rem)] bg-white"
-				style={{ width: '900px' }}
-			>
-				{games?.length > 0 ? (
-					games.map((item: FootballMatch) => {
+		<div className="flex py-4 justify-center gap-4 h-screen overflow-hidden w-full relative">
+			<ScrollableCardList className="bg-white flex-grow">
+				{displayedGames?.length > 0 ? (
+					displayedGames.map((item: FootballMatch) => {
 						return (
 							<GameCard key={item.id} {...item} className="border-b border-gray-300" />
 						);
@@ -45,11 +40,12 @@ const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues 
 				)}
 			</ScrollableCardList>
 
-			<div className="m-4 h-[calc(100vh-2rem)] overflow-hidden relative">
+			<div className="overflow-hidden relative min-w-[300px]">
 				<LeaguesTabs
 					leagues={leagues}
 					selectedTeams={selectedTeams}
 					setSelectedTeams={setSelectedTeams}
+					updateSelectedTeams={updateSelectedTeams}
 				/>
 			</div>
 		</div>
