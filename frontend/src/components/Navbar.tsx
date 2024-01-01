@@ -48,8 +48,8 @@ const Navbar: FC<PropsWithChildren<{ className: string }>> = ({ className }) => 
 	}, []);
 
 	return (
-		<div className="pt-4 px-4">
-			<NavbarMaterial className={`mx-auto max-w-screen-xl px-6 py-3 ${className}`}>
+		<div className="pt-4 relative flex justify-center">
+			<NavbarMaterial className={`px-6 py-3 flex-grow-0 ${className}`}>
 				<div className="flex items-center justify-between text-blue-gray-900">
 					<Typography as="a" href="#" variant="h6" className="mr-4 cursor-pointer py-1.5">
 						Match aggregator
