@@ -10,16 +10,16 @@ import {
 } from '@/types/games';
 import React, { FC, PropsWithChildren, useState } from 'react';
 import GameCard from './GameCard';
-import LeaguesTabs from './LeaguesTabs';
+import LeaguesTabs from './LeaguesTabsSchedule';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import useUserPreferences from '@/hooks/useUserPreferences';
 
-interface MainScreenProps {
+interface ScheduleProps {
 	schedule: Array<FootballMatch>;
 	leagues: Array<FootballLeague>;
 }
 
-const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues }) => {
+const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) => {
 	const { user } = useUser();
 	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameShown } =
 		useUserPreferences(user, leagues);
@@ -52,4 +52,4 @@ const MainScreen: FC<PropsWithChildren<MainScreenProps>> = ({ schedule, leagues 
 	);
 };
 
-export default MainScreen;
+export default Schedule;

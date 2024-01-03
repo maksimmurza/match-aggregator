@@ -1,30 +1,12 @@
 import { FootballLeague, FootballLeaguesValues, FootballTeam } from '@/types/games';
-import React, {
-	FC,
-	PropsWithChildren,
-	SetStateAction,
-	useCallback,
-	useEffect,
-	useState,
-} from 'react';
-import TabsPanel from '@/layouts/TabsPanel';
-import LeagueCheckbox from './LeagueCheckbox';
-import TeamCheckbox from './TeamCheckbox';
 import { ReactSetState } from '@/types/utils';
+import { useCallback } from 'react';
 
-interface LeagueTabsProps {
-	leagues: Array<FootballLeague>;
-	selectedTeams: FootballLeaguesValues;
-	setSelectedTeams: ReactSetState<FootballLeaguesValues>;
-	updateSelectedTeams: (updatedPayload: FootballLeaguesValues) => void;
-}
-
-const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
-	leagues,
-	selectedTeams,
-	setSelectedTeams,
-	updateSelectedTeams,
-}) => {
+const useTeamsFilter = (
+	selectedTeams: FootballLeaguesValues,
+	setSelectedTeams: ReactSetState<FootballLeaguesValues>,
+	updateSelectedTeams: (updatedPayload: FootballLeaguesValues) => void,
+) => {
 	const onChangeLeagueState = useCallback(
 		(leagueId: FootballLeague['id'], newCheckboxState: boolean) => {
 			setSelectedTeams((prevState: FootballLeaguesValues) => {
@@ -72,34 +54,11 @@ const LeaguesTabs: FC<PropsWithChildren<LeagueTabsProps>> = ({
 		}
 	};
 
-	const tabsData = leagues.map((league) => {
-		return {
-			tabLabel: (
-				<LeagueCheckbox
-					league={league}
-					state={getLeagueCheckboxState(league)}
-					onChange={onChangeLeagueState}
-				/>
-			),
-			tabValue: league.name,
-			tabContent: (
-				<div className="flex flex-col">
-					{league.teams.map((team) => {
-						return (
-							<TeamCheckbox
-								key={team.id}
-								team={team}
-								checked={selectedTeams[league.id][team.id]}
-								onChange={onChangeTeamState}
-							/>
-						);
-					})}
-				</div>
-			),
-		};
-	});
-
-	return <TabsPanel data={tabsData} />;
+	return {
+		onChangeLeagueState,
+		onChangeTeamState,
+		getLeagueCheckboxState,
+	};
 };
 
-export default LeaguesTabs;
+export default useTeamsFilter;

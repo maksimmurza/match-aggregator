@@ -8,6 +8,10 @@ export const COMPETITION_SCHEDULE = (
 	return `/competitions/${leagueCode}/${query}`;
 };
 
+export const COMPETITION_STANDINGS = (leagueCode: LeagueCode) => {
+	return `/competitions/${leagueCode}/standings`;
+};
+
 // rapid api
 export const COMPETITION_TEAMS = (leagueCode: LeagueCode) =>
 	`/competitions/${leagueCode}/teams`;

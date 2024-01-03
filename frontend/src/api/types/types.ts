@@ -37,17 +37,38 @@ export interface LeagueScheduleResponse {
 	competition: FootballCompetitionApi;
 	matches: Array<FootballMatchApi>;
 }
-
+interface TeamApi {
+	id: number;
+	name: string;
+	shortName: string;
+	crest: string;
+}
 export interface LeagueTeamsResponse {
 	competition: FootballCompetitionApi;
-	teams: Array<{
-		id: number;
-		name: string;
-		shortName: string;
-		crest: string;
-	}>;
+	teams: Array<TeamApi>;
 }
 
 export type UserPreferences = {
 	unselectedTeams: Array<string>;
 };
+
+export interface LeagueStandingsResponse {
+	filters: {
+		season?: string;
+	};
+	competition: FootballCompetitionApi;
+	standings: Array<{
+		table: Array<{
+			position: number;
+			team: TeamApi & { tla: string };
+			playedGames: number;
+			won: number;
+			draw: number;
+			lost: number;
+			points: number;
+			goalsFor: number;
+			goalsAgainst: number;
+			goalDifference: number;
+		}>;
+	}>;
+}
