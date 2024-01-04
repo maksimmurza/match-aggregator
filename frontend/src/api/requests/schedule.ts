@@ -4,6 +4,7 @@ import { dataApiProvider } from '..';
 import { isLeagueScheduleResponse } from '../types/typeGuards';
 import { LeagueCode, LeagueScheduleResponse } from '../types/types';
 import { API_TYPE_ERROR_MESSAGE } from '../constants/errorMessages';
+import { cache } from 'react';
 
 const getLeagueSchedule = async (
 	leagueCode: LeagueCode,
@@ -18,8 +19,8 @@ const getLeagueSchedule = async (
 	}
 };
 
-export const getFullSchedule = async (): Promise<Array<LeagueScheduleResponse>> => {
+export const getFullSchedule = cache(async (): Promise<Array<LeagueScheduleResponse>> => {
 	return await Promise.all(
 		Object.values(LEAGUES_CODES).map((leagueCode) => getLeagueSchedule(leagueCode)),
 	);
-};
+});

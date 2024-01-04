@@ -3,6 +3,7 @@ import { COMPETITION_STANDINGS } from '../constants/endpoints';
 import { API_ERROR_MESSAGE } from '../constants/errorMessages';
 import { LEAGUES_CODES } from '../constants/requestOptions';
 import { LeagueCode, LeagueStandingsResponse } from '../types/types';
+import { cache } from 'react';
 
 const getLeagueStandings = async (
 	leagueCode: LeagueCode,
@@ -16,8 +17,8 @@ const getLeagueStandings = async (
 	}
 };
 
-export const getLeaguesStandings = async () => {
+export const getLeaguesStandings = cache(async () => {
 	return await Promise.all(
 		Object.values(LEAGUES_CODES).map((leagueCode) => getLeagueStandings(leagueCode)),
 	);
-};
+});

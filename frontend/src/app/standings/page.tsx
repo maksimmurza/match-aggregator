@@ -4,6 +4,7 @@ import LeaguesStandingsTabs from '@/components/LeaguesTabsStandings';
 import React from 'react';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 900;
 
 export default async function StandingsPage() {
 	const leaguesStandingsResponse: Array<LeagueStandingsResponse> =

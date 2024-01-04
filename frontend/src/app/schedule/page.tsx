@@ -7,6 +7,7 @@ import resolveLeagues from '@/utils/resolveLeagues';
 import resolveSchedule from '@/utils/resolveSchedule';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 900;
 
 export default async function SchedulePage() {
 	const scheduleResponse: Array<LeagueScheduleResponse> = await getFullSchedule();
