@@ -6,6 +6,8 @@ import { FootballMatch, FootballLeague } from '@/types/games';
 import resolveLeagues from '@/utils/resolveLeagues';
 import resolveSchedule from '@/utils/resolveSchedule';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SchedulePage() {
 	const scheduleResponse: Array<LeagueScheduleResponse> = await getFullSchedule();
 	const leaguesTeamsResponse: Array<LeagueTeamsResponse> = await getLeaguesTeams();
