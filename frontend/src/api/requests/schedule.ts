@@ -4,9 +4,10 @@ import { dataApiProvider } from '..';
 import { isLeagueScheduleResponse } from '../types/typeGuards';
 import { LeagueCode, LeagueScheduleResponse } from '../types/types';
 import { API_TYPE_ERROR_MESSAGE } from '../constants/errorMessages';
-import { cache } from 'react';
 
-const getLeagueSchedule = async (leagueCode: LeagueCode): Promise<LeagueScheduleResponse> => {
+const getLeagueSchedule = async (
+	leagueCode: LeagueCode,
+): Promise<LeagueScheduleResponse> => {
 	const url = COMPETITION_SCHEDULE(leagueCode);
 	const response = await dataApiProvider.instance.get(url);
 

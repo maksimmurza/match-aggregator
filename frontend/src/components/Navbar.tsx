@@ -12,10 +12,13 @@ import { HiBars3 } from 'react-icons/hi2';
 import { IoCloseOutline } from 'react-icons/io5';
 import ProfileClient from './ProfileClient';
 
-const NavbarItem: FC<PropsWithChildren> = ({ children }) => {
+const NavbarItem: FC<PropsWithChildren<{ link?: string }>> = ({
+	link = '/',
+	children,
+}) => {
 	return (
 		<Typography as="li" variant="small" color="blue-gray" className="p-1 font-medium">
-			<a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+			<a href={link} className="flex items-center hover:text-blue-500 transition-colors">
 				{children}
 			</a>
 		</Typography>
@@ -25,11 +28,11 @@ const NavbarItem: FC<PropsWithChildren> = ({ children }) => {
 const NavbarList: FC = () => {
 	return (
 		<ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-			<NavbarItem>Schedule</NavbarItem>
-			<NavbarItem>Results</NavbarItem>
-			<NavbarItem>Standings</NavbarItem>
-			<NavbarItem>Hightlights</NavbarItem>
-			<NavbarItem>About</NavbarItem>
+			<NavbarItem link="/schedule">Schedule</NavbarItem>
+			{/* <NavbarItem>Results</NavbarItem> */}
+			<NavbarItem link="/standings">Standings</NavbarItem>
+			{/* <NavbarItem>Hightlights</NavbarItem> */}
+			{/* <NavbarItem>About</NavbarItem> */}
 		</ul>
 	);
 };
