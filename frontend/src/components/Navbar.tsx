@@ -11,6 +11,7 @@ import {
 import { HiBars3 } from 'react-icons/hi2';
 import { IoCloseOutline } from 'react-icons/io5';
 import ProfileClient from './ProfileClient';
+import Link from 'next/link';
 
 const NavbarItem: FC<PropsWithChildren<{ link?: string }>> = ({
 	link = '/',
@@ -18,9 +19,12 @@ const NavbarItem: FC<PropsWithChildren<{ link?: string }>> = ({
 }) => {
 	return (
 		<Typography as="li" variant="small" color="blue-gray" className="p-1 font-medium">
-			<a href={link} className="flex items-center hover:text-blue-500 transition-colors">
+			<Link
+				href={link}
+				className="flex items-center hover:text-blue-500 transition-colors"
+			>
 				{children}
-			</a>
+			</Link>
 		</Typography>
 	);
 };
