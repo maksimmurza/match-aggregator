@@ -1,4 +1,4 @@
-import { LeagueCode } from '../types/types';
+import { LeagueCode } from '../types/apiData';
 
 // football-data api
 export const COMPETITION_SCHEDULE = (

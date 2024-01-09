@@ -7,7 +7,7 @@ import {
 	FootballMatch,
 	FootballTeam,
 	FootballTeamsValues,
-} from '@/types/games';
+} from '@/types/appData';
 import React, { FC, PropsWithChildren, useState } from 'react';
 import GameCard from './GameCard';
 import LeaguesTabs from './LeaguesTabsSchedule';
@@ -21,10 +21,10 @@ interface ScheduleProps {
 
 const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) => {
 	const { user } = useUser();
-	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameShown } =
+	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameVisible } =
 		useUserPreferences(user, leagues);
 
-	const displayedGames = schedule?.filter(isGameShown);
+	const displayedGames = schedule?.filter(isGameVisible);
 
 	return (
 		<div className="flex py-4 justify-center gap-4 h-screen overflow-hidden w-full relative">

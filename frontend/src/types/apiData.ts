@@ -1,16 +1,28 @@
 import { DateString, DateTimeString, YYYY } from '@/types/dates';
 import { LEAGUES_CODES } from '../constants/requestOptions';
-import { MatchStatus } from '@/types/games';
+import { MatchStatus } from '@/types/appData';
 
 // type equals set of LEAGUES_CODES values
 export type LeagueCode<T = typeof LEAGUES_CODES> = T[keyof T];
 
-// ...Api postfix is for types that we expect from api, same types without
-// postfix are for internal usage and they are placed (or will be) in global types folder
-interface FootballTeamApi {
+interface FootballPlayer {
+	id: number;
+	name: string;
+	position: string;
+	dateOfBirth: string;
+	nationality: string;
+}
+
+interface FootballTeamShortApi {
 	id: number;
 	name: string;
 	crest: string;
+	tla: string;
+}
+
+export interface FootballTeamApi extends FootballTeamShortApi {
+	coach: string;
+	squad: Array<FootballPlayer>;
 }
 
 interface FootballCompetitionApi {
@@ -25,8 +37,8 @@ export interface FootballMatchApi {
 	utcDate: string;
 	status: MatchStatus;
 	competition: FootballCompetitionApi;
-	homeTeam: FootballTeamApi;
-	awayTeam: FootballTeamApi;
+	homeTeam: FootballTeamShortApi;
+	awayTeam: FootballTeamShortApi;
 }
 
 export interface LeagueScheduleResponse {
@@ -37,20 +49,28 @@ export interface LeagueScheduleResponse {
 	competition: FootballCompetitionApi;
 	matches: Array<FootballMatchApi>;
 }
-interface TeamApi {
-	id: number;
-	name: string;
-	shortName: string;
-	crest: string;
-}
+
 export interface LeagueTeamsResponse {
 	competition: FootballCompetitionApi;
-	teams: Array<TeamApi>;
+	teams: Array<FootballTeamApi>;
 }
 
 export type UserPreferences = {
 	unselectedTeams: Array<string>;
 };
+
+export interface FootballTeamStandingApi {
+	position: number;
+	team: FootballTeamApi;
+	playedGames: number;
+	won: number;
+	draw: number;
+	lost: number;
+	points: number;
+	goalsFor: number;
+	goalsAgainst: number;
+	goalDifference: number;
+}
 
 export interface LeagueStandingsResponse {
 	filters: {
@@ -58,17 +78,6 @@ export interface LeagueStandingsResponse {
 	};
 	competition: FootballCompetitionApi;
 	standings: Array<{
-		table: Array<{
-			position: number;
-			team: TeamApi & { tla: string };
-			playedGames: number;
-			won: number;
-			draw: number;
-			lost: number;
-			points: number;
-			goalsFor: number;
-			goalsAgainst: number;
-			goalDifference: number;
-		}>;
+		table: Array<FootballTeamStandingApi>;
 	}>;
 }

@@ -1,4 +1,4 @@
-import { FootballLeague, FootballLeaguesValues, FootballTeam } from '@/types/games';
+import { FootballLeague, FootballLeaguesValues, FootballTeam } from '@/types/appData';
 import { ReactSetState } from '@/types/utils';
 import { useCallback } from 'react';
 

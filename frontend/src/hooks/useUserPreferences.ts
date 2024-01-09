@@ -1,4 +1,4 @@
-import { FootballLeague, FootballLeaguesValues, FootballMatch } from '@/types/games';
+import { FootballLeague, FootballLeaguesValues, FootballMatch } from '@/types/appData';
 import { createSelectedTeamsObject } from '@/utils/data';
 import { UserProfile } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ const useUserPreferences = (user: UserProfile | undefined, leagues: FootballLeag
 		createSelectedTeamsObject(leagues),
 	);
 
-	const isGameShown = (game: FootballMatch): boolean => {
+	const isGameVisible = (game: FootballMatch): boolean => {
 		const league = selectedTeams[game.leagueId];
 		return league[game.homeTeam.id] || league[game.awayTeam.id];
 	};
@@ -46,7 +46,7 @@ const useUserPreferences = (user: UserProfile | undefined, leagues: FootballLeag
 		selectedTeams,
 		setSelectedTeams,
 		updateSelectedTeams,
-		isGameShown,
+		isGameVisible,
 	};
 };
 
