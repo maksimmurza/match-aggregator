@@ -10,7 +10,7 @@ export default async function StandingsPage() {
 		await getLeaguesStandings();
 
 	return (
-		<div>
+		<div className="mt-4 h-screen overflow-hidden w-full relative">
 			<LeaguesStandingsTabs standings={leaguesStandingsResponse} />
 		</div>
 	);

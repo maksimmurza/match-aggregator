@@ -13,15 +13,16 @@ interface FootballPlayer {
 	nationality: string;
 }
 
-interface FootballTeamApi extends FootballTeamShortApi {
-	coach: string;
-	squad: Array<FootballPlayer>;
-}
-
 interface FootballTeamShortApi {
 	id: number;
 	name: string;
 	crest: string;
+	tla: string;
+}
+
+export interface FootballTeamApi extends FootballTeamShortApi {
+	coach: string;
+	squad: Array<FootballPlayer>;
 }
 
 interface FootballCompetitionApi {
@@ -58,23 +59,25 @@ export type UserPreferences = {
 	unselectedTeams: Array<string>;
 };
 
+export interface FootballTeamStandingApi {
+	position: number;
+	team: FootballTeamApi;
+	playedGames: number;
+	won: number;
+	draw: number;
+	lost: number;
+	points: number;
+	goalsFor: number;
+	goalsAgainst: number;
+	goalDifference: number;
+}
+
 export interface LeagueStandingsResponse {
 	filters: {
 		season?: string;
 	};
 	competition: FootballCompetitionApi;
 	standings: Array<{
-		table: Array<{
-			position: number;
-			team: FootballTeamApi & { tla: string };
-			playedGames: number;
-			won: number;
-			draw: number;
-			lost: number;
-			points: number;
-			goalsFor: number;
-			goalsAgainst: number;
-			goalDifference: number;
-		}>;
+		table: Array<FootballTeamStandingApi>;
 	}>;
 }
