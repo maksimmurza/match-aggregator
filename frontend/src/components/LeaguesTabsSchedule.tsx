@@ -1,4 +1,4 @@
-import { FootballLeague, FootballLeaguesValues } from '@/types/games';
+import { FootballLeague, FootballLeaguesValues } from '@/types/appData';
 import React, { FC, PropsWithChildren } from 'react';
 import TabsPanel from '@/layouts/TabsPanel';
 import LeagueCheckbox from './LeagueCheckbox';

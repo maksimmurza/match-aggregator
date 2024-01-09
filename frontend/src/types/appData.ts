@@ -1,5 +1,3 @@
-import { DateTimeString } from './dates';
-
 export type MatchStatus =
 	| 'SCHEDULED'
 	| 'LIVE'
@@ -10,14 +8,11 @@ export type MatchStatus =
 	| 'SUSPENDED'
 	| 'CANCELLED';
 
-export interface FootballMatch {
+export interface FootballTeam {
 	id: number;
 	leagueId: FootballLeague['id'];
-	leagueLogo: string;
-	utcDate: string;
-	status: MatchStatus;
-	homeTeam: FootballTeam;
-	awayTeam: FootballTeam;
+	name: string;
+	logo: string;
 }
 
 export interface FootballLeague {
@@ -27,11 +22,14 @@ export interface FootballLeague {
 	teams: Array<FootballTeam>;
 }
 
-export interface FootballTeam {
+export interface FootballMatch {
 	id: number;
 	leagueId: FootballLeague['id'];
-	name: string;
-	logo: string;
+	leagueLogo: string;
+	utcDate: string;
+	status: MatchStatus;
+	homeTeam: FootballTeam;
+	awayTeam: FootballTeam;
 }
 
 export type FootballTeamsValues = Record<string, boolean>;

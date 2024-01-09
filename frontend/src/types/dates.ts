@@ -8,7 +8,7 @@ type ZeroToNine = 0 | OneToNine;
 // scheduled football games can't be in the past
 // It should be NumericRange<20, 99> at least, but we get a warning
 // "Expression produces a union type that is too complex to represent."
-// NumericRange is for exmple here, in case we want to create a range,
+// NumericRange is for example here, in case we want to create a range,
 // but in our case it's not necessary, because... 2100+ year, really?
 type AnyYYYY = `${NumericRange<20, 99>}${ZeroToNine}${ZeroToNine}`;
 export type YYYY = `20${ZeroToNine}${ZeroToNine}`;
