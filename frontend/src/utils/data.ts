@@ -2,7 +2,7 @@ import {
 	FootballLeague,
 	FootballLeaguesValues,
 	FootballTeamsValues,
-} from '@/types/games';
+} from '@/types/appData';
 
 const createSelectedTeamsObject = (leagues: Array<FootballLeague>) => {
 	const initialSelectedTeams: FootballLeaguesValues = {};

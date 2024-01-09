@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { FootballLeague } from '@/types/games';
-import { LeagueStandingsResponse } from '@/api/types/types';
+import { FootballLeague } from '@/types/appData';
+import { LeagueStandingsResponse } from '@/types/apiData';
 import TabsPanel from '@/layouts/TabsPanel';
 
 interface LeagueTabsProps {

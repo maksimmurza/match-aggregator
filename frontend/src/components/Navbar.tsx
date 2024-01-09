@@ -7,7 +7,7 @@ import {
 	Typography,
 	IconButton,
 	Button,
-} from '../app/materialTailwind';
+} from './MaterialTailwindComponents';
 import { HiBars3 } from 'react-icons/hi2';
 import { IoCloseOutline } from 'react-icons/io5';
 import ProfileClient from './ProfileClient';

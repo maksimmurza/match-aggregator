@@ -2,9 +2,9 @@
 
 'use client';
 
-import { FootballLeague } from '@/types/games';
+import { FootballLeague } from '@/types/appData';
 import React, { FC, PropsWithChildren, memo } from 'react';
-import { Checkbox } from '../app/materialTailwind';
+import { Checkbox } from './MaterialTailwindComponents';
 import { FaMinus } from 'react-icons/fa';
 
 interface LeagueCheckboxProps {

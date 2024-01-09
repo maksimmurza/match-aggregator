@@ -1,13 +1,12 @@
-import { getFullSchedule } from '@/api/requests/schedule';
-import { getLeaguesTeams } from '@/api/requests/teamsInfo';
-import { LeagueScheduleResponse, LeagueTeamsResponse } from '@/api/types/types';
+import { getFullSchedule } from '@/actions/schedule';
+import { getLeaguesTeams } from '@/actions/teamsInfo';
+import { LeagueScheduleResponse, LeagueTeamsResponse } from '@/types/apiData';
 import Schedule from '@/components/Schedule';
-import { FootballMatch, FootballLeague } from '@/types/games';
+import { FootballMatch, FootballLeague } from '@/types/appData';
 import resolveLeagues from '@/utils/resolveLeagues';
 import resolveSchedule from '@/utils/resolveSchedule';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 900;
 
 export default async function SchedulePage() {
 	const scheduleResponse: Array<LeagueScheduleResponse> = await getFullSchedule();

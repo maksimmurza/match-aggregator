@@ -1,13 +1,24 @@
 import { DateString, DateTimeString, YYYY } from '@/types/dates';
 import { LEAGUES_CODES } from '../constants/requestOptions';
-import { MatchStatus } from '@/types/games';
+import { MatchStatus } from '@/types/appData';
 
 // type equals set of LEAGUES_CODES values
 export type LeagueCode<T = typeof LEAGUES_CODES> = T[keyof T];
 
-// ...Api postfix is for types that we expect from api, same types without
-// postfix are for internal usage and they are placed (or will be) in global types folder
-interface FootballTeamApi {
+interface FootballPlayer {
+	id: number;
+	name: string;
+	position: string;
+	dateOfBirth: string;
+	nationality: string;
+}
+
+interface FootballTeamApi extends FootballTeamShortApi {
+	coach: string;
+	squad: Array<FootballPlayer>;
+}
+
+interface FootballTeamShortApi {
 	id: number;
 	name: string;
 	crest: string;
@@ -25,8 +36,8 @@ export interface FootballMatchApi {
 	utcDate: string;
 	status: MatchStatus;
 	competition: FootballCompetitionApi;
-	homeTeam: FootballTeamApi;
-	awayTeam: FootballTeamApi;
+	homeTeam: FootballTeamShortApi;
+	awayTeam: FootballTeamShortApi;
 }
 
 export interface LeagueScheduleResponse {
@@ -37,15 +48,10 @@ export interface LeagueScheduleResponse {
 	competition: FootballCompetitionApi;
 	matches: Array<FootballMatchApi>;
 }
-interface TeamApi {
-	id: number;
-	name: string;
-	shortName: string;
-	crest: string;
-}
+
 export interface LeagueTeamsResponse {
 	competition: FootballCompetitionApi;
-	teams: Array<TeamApi>;
+	teams: Array<FootballTeamApi>;
 }
 
 export type UserPreferences = {
@@ -60,7 +66,7 @@ export interface LeagueStandingsResponse {
 	standings: Array<{
 		table: Array<{
 			position: number;
-			team: TeamApi & { tla: string };
+			team: FootballTeamApi & { tla: string };
 			playedGames: number;
 			won: number;
 			draw: number;

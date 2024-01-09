@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { FootballMatchApi } from '@/api/types/types';
-import { FootballMatch } from '@/types/games';
+import { FootballMatchApi } from '@/types/apiData';
+import { FootballMatch } from '@/types/appData';
 import React, { FC, PropsWithChildren, memo } from 'react';
 import Image from 'next/image';
 import { prettifyDate } from '@/utils/date';
 import Label from './DateLabel';
-import { Typography } from '../app/materialTailwind';
+import { Typography } from './MaterialTailwindComponents';
 import TeamName from './TeamName';
 import TimeLabel from './TimeLabel';
 import DateLabel from './DateLabel';
