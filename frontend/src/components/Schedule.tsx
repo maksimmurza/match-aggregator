@@ -13,6 +13,7 @@ import GameCard from './GameCard';
 import LeaguesTabs from './LeaguesTabsSchedule';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import useUserPreferences from '@/hooks/useUserPreferences';
+import useGoogleCalendar from '@/hooks/useGoogleCalendar';
 
 interface ScheduleProps {
 	schedule: Array<FootballMatch>;
@@ -23,6 +24,8 @@ const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) =
 	const { user } = useUser();
 	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameVisible } =
 		useUserPreferences(user, leagues);
+
+	const { googleIdpToken } = useGoogleCalendar(user?.sub);
 
 	const displayedGames = schedule?.filter(isGameVisible);
 
