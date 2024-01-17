@@ -1,3 +1,4 @@
+import { getCalendar } from '@/actions/google-calendar';
 import { useEffect, useState } from 'react';
 
 const useGoogleCalendar = (userId?: string | null) => {
@@ -25,9 +26,13 @@ const useGoogleCalendar = (userId?: string | null) => {
 
 	useEffect(() => {
 		if (userId) {
-			getGoogleIdpToken(userId);
+			getGoogleIdpToken(userId).then(() => {
+				if (googleIdpToken) {
+					getCalendar(googleIdpToken);
+				}
+			});
 		}
-	}, [userId]);
+	}, [userId, googleIdpToken]);
 
 	return {
 		getGoogleIdpToken,
