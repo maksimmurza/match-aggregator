@@ -1,25 +1,41 @@
 'use server';
-import { google } from 'googleapis';
 
-const getCalendar = (token: string) => {
-	const oauth2Client = new google.auth.OAuth2();
-	oauth2Client.setCredentials({ access_token: token });
-	const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-	calendar.calendarList.list({}, (err, res) => {
-		if (err) {
-			console.error('The API returned an error: ' + err);
-			return;
-		}
-		const calendars = res?.data.items;
-		if (calendars?.length) {
-			console.log('Calendars:');
-			calendars.forEach((calendar) => {
-				console.log(`${calendar.summary} - ${calendar.id}`);
-			});
-		} else {
-			console.log('No calendars found.');
-		}
-	});
+const getCalendar = async (token: string): Promise<string> => {
+	const response = await fetch(
+		'https://www.googleapis.com/calendar/v3/users/me/calendarList',
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': `Bearer ${token}`,
+			},
+		},
+	);
+
+	const data = await response.json();
+
+	const targetCalendar = data.items.find(
+		(calendar: any) => calendar.summary === 'Match aggregator',
+	);
+
+	if (targetCalendar) {
+		return targetCalendar.id;
+	} else {
+		// console.log(token);
+		const response = await fetch('https://www.googleapis.com/calendar/v3/calendars', {
+			method: 'POST',
+			headers: {
+				'Authorization': `Bearer ${token}`,
+			},
+			// TODO: remember id
+			body: JSON.stringify({
+				summary: 'Match aggregator',
+			}),
+		});
+
+		const targetCalendar = await response.json();
+
+		return targetCalendar.id;
+	}
 };
 
 export { getCalendar };

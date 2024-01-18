@@ -25,7 +25,7 @@ const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) =
 	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameVisible } =
 		useUserPreferences(user, leagues);
 
-	const { googleIdpToken } = useGoogleCalendar(user?.sub);
+	const { targetCalendarId, addGameToCalendar } = useGoogleCalendar(user?.sub);
 
 	const displayedGames = schedule?.filter(isGameVisible);
 
@@ -35,7 +35,16 @@ const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) =
 				{displayedGames?.length > 0 ? (
 					displayedGames.map((item: FootballMatch) => {
 						return (
-							<GameCard key={item.id} {...item} className="border-b border-gray-300" />
+							<GameCard
+								key={item.id}
+								game={item}
+								addGameToCalendar={(game: FootballMatch) => {
+									if (targetCalendarId) {
+										addGameToCalendar(game, targetCalendarId);
+									}
+								}}
+								className="border-b border-gray-300"
+							/>
 						);
 					})
 				) : (
