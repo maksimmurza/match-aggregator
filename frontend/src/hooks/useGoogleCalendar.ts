@@ -1,8 +1,19 @@
-import { getCalendar } from '@/actions/google-calendar';
+import { resolveCalendar } from '@/actions/google-calendar';
 import { FootballMatch } from '@/types/appData';
 import { useEffect, useState } from 'react';
 
-const useGoogleCalendar = (userId?: string | null) => {
+interface UserCalendarData {
+	userId?: string | null;
+	googleCalendarId?: string | null;
+	updateGoogleCalendarId: (payload: { googleCalendarId: string }) => Promise<any>;
+}
+
+const useGoogleCalendar = ({
+	userId,
+	googleCalendarId,
+	updateGoogleCalendarId,
+}: UserCalendarData) => {
+	// google identity provider token
 	const [googleIdpToken, setGoogleIdpToken] = useState();
 	const [targetCalendarId, setTargetCalendarId] = useState<string>();
 
@@ -23,11 +34,10 @@ const useGoogleCalendar = (userId?: string | null) => {
 				identity.provider === 'google-oauth2',
 		).access_token;
 
-		setGoogleIdpToken(token);
+		return token;
 	};
 
 	const addGameToCalendar = async (game: FootballMatch, calendarId: string) => {
-		console.log('sdfghjkl');
 		const { homeTeam, awayTeam, utcDate } = game;
 		const response = await fetch(
 			`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`,
@@ -38,7 +48,7 @@ const useGoogleCalendar = (userId?: string | null) => {
 					'Authorization': `Bearer ${googleIdpToken}`,
 				},
 				body: JSON.stringify({
-					'description': `${homeTeam.name} - ${awayTeam.name}`,
+					'summary': `${homeTeam.name} - ${awayTeam.name}`,
 					'start': {
 						'dateTime': utcDate,
 					},
@@ -55,18 +65,27 @@ const useGoogleCalendar = (userId?: string | null) => {
 	};
 
 	useEffect(() => {
-		if (userId) {
-			getGoogleIdpToken(userId).then(() => {
-				if (googleIdpToken) {
-					getCalendar(googleIdpToken).then((targetCalendarId) => {
-						if (targetCalendarId) {
-							setTargetCalendarId(targetCalendarId);
-						}
-					});
-				}
-			});
-		}
-	}, [userId, googleIdpToken]);
+		const resolveCalendarId = async () => {
+			if (!userId) return;
+
+			const googleToken = await getGoogleIdpToken(userId);
+
+			if (!googleToken) return;
+
+			setGoogleIdpToken(googleToken);
+			const targetCalendarId = await resolveCalendar(googleToken, googleCalendarId);
+
+			if (!targetCalendarId) return;
+
+			setTargetCalendarId(targetCalendarId);
+
+			if (targetCalendarId !== googleCalendarId) {
+				updateGoogleCalendarId({ googleCalendarId: targetCalendarId });
+			}
+		};
+
+		resolveCalendarId();
+	}, [userId]);
 
 	return {
 		googleIdpToken,

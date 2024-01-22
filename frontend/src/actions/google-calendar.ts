@@ -1,41 +1,44 @@
 'use server';
 
-const getCalendar = async (token: string): Promise<string> => {
-	const response = await fetch(
-		'https://www.googleapis.com/calendar/v3/users/me/calendarList',
-		{
-			method: 'GET',
-			headers: {
-				'Authorization': `Bearer ${token}`,
+const resolveCalendar = async (
+	token: string,
+	googleCalendarId: string | null | undefined,
+): Promise<string> => {
+	if (googleCalendarId) {
+		const response = await fetch(
+			process.env.GOOGLE_CALENDAR_BASE_URL + '/users/me/calendarList',
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': `Bearer ${token}`,
+				},
 			},
-		},
-	);
+		);
 
-	const data = await response.json();
+		const data = await response.json();
 
-	const targetCalendar = data.items.find(
-		(calendar: any) => calendar.summary === 'Match aggregator',
-	);
+		const targetCalendar = data.items.find(
+			(calendar: { id: string }) => calendar.id === googleCalendarId,
+		);
 
-	if (targetCalendar) {
-		return targetCalendar.id;
-	} else {
-		// console.log(token);
-		const response = await fetch('https://www.googleapis.com/calendar/v3/calendars', {
-			method: 'POST',
-			headers: {
-				'Authorization': `Bearer ${token}`,
-			},
-			// TODO: remember id
-			body: JSON.stringify({
-				summary: 'Match aggregator',
-			}),
-		});
-
-		const targetCalendar = await response.json();
-
-		return targetCalendar.id;
+		if (targetCalendar) {
+			return targetCalendar.id;
+		}
 	}
+
+	const response = await fetch(process.env.GOOGLE_CALENDAR_BASE_URL + '/calendars', {
+		method: 'POST',
+		headers: {
+			'Authorization': `Bearer ${token}`,
+		},
+		body: JSON.stringify({
+			summary: 'Match aggregator',
+		}),
+	});
+
+	const targetCalendar = await response.json();
+
+	return targetCalendar.id;
 };
 
-export { getCalendar };
+export { resolveCalendar };

@@ -19,6 +19,7 @@ export class UserPreferencesService {
 			defaults: {
 				userId,
 				selectedTeams: null,
+				googleCalendarId: null,
 			},
 		});
 
@@ -28,6 +29,19 @@ export class UserPreferencesService {
 	async putSelectedTeams(userId: string, payload: any) {
 		const result = await this.userPreferencesModel.update(
 			{ selectedTeams: payload },
+			{
+				where: {
+					userId,
+				},
+			},
+		);
+
+		return result;
+	}
+
+	async putGoogleCalendarId(userId: string, payload: { googleCalendarId: string }) {
+		const result = await this.userPreferencesModel.update(
+			{ googleCalendarId: payload.googleCalendarId },
 			{
 				where: {
 					userId,

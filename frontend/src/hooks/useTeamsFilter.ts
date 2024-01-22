@@ -4,20 +4,19 @@ import { useCallback } from 'react';
 
 const useTeamsFilter = (
 	selectedTeams: FootballLeaguesValues,
-	setSelectedTeams: ReactSetState<FootballLeaguesValues>,
+	setSelectedTeams: (payload: FootballLeaguesValues) => void,
 	updateSelectedTeams: (updatedPayload: FootballLeaguesValues) => void,
 ) => {
 	const onChangeLeagueState = useCallback(
 		(leagueId: FootballLeague['id'], newCheckboxState: boolean) => {
-			setSelectedTeams((prevState: FootballLeaguesValues) => {
-				let newState = { ...prevState };
-				const teamsIds = Object.keys(newState[leagueId]);
-				teamsIds.forEach((teamId) => {
-					newState[leagueId][teamId] = newCheckboxState;
-				});
-				updateSelectedTeams(newState);
-				return newState;
+			let newState = { ...selectedTeams };
+			const teamsIds = Object.keys(newState[leagueId]);
+			teamsIds.forEach((teamId) => {
+				newState[leagueId][teamId] = newCheckboxState;
 			});
+			setSelectedTeams(newState);
+			updateSelectedTeams(newState);
+			return newState;
 		},
 		[],
 	);
@@ -28,12 +27,11 @@ const useTeamsFilter = (
 			teamId: FootballTeam['id'],
 			newCheckboxState: boolean,
 		) => {
-			setSelectedTeams((prevState: FootballLeaguesValues) => {
-				let newState = { ...prevState };
-				newState[leagueId][teamId] = newCheckboxState;
-				updateSelectedTeams(newState);
-				return newState;
-			});
+			let newState = { ...selectedTeams };
+			newState[leagueId][teamId] = newCheckboxState;
+			setSelectedTeams(newState);
+			updateSelectedTeams(newState);
+			return newState;
 		},
 		[],
 	);

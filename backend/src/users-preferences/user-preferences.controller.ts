@@ -15,9 +15,16 @@ export class UserPreferencesController {
 		});
 	}
 
-	@Put()
+	@Put('/selected-teams')
 	putUserSelectedTeams(@Request() req: Req & { userId: string }, @Response() res: Res) {
 		this.userPreferencesService.putSelectedTeams(req.userId, req.body).then((resp) => {
+			res.json(resp);
+		});
+	}
+
+	@Put('/google-calendar-id')
+	putGoogleCalendarId(@Request() req: Req & { userId: string }, @Response() res: Res) {
+		this.userPreferencesService.putGoogleCalendarId(req.userId, req.body).then((resp) => {
 			res.json(resp);
 		});
 	}

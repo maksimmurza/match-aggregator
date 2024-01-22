@@ -9,7 +9,7 @@ import useTeamsFilter from '@/hooks/useTeamsFilter';
 interface LeagueTabsProps {
 	leagues: Array<FootballLeague>;
 	selectedTeams: FootballLeaguesValues;
-	setSelectedTeams: ReactSetState<FootballLeaguesValues>;
+	setSelectedTeams: (payload: FootballLeaguesValues) => void;
 	updateSelectedTeams: (updatedPayload: FootballLeaguesValues) => void;
 }
 
