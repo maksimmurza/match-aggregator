@@ -25,8 +25,8 @@ const getLeagueStandings = async (
 	}
 };
 
-export const getLeaguesStandings = cache(async () => {
+export const getLeaguesStandings = async () => {
 	return await Promise.all(
 		Object.values(LEAGUES_CODES).map((leagueCode) => getLeagueStandings(leagueCode)),
 	);
-});
+};
