@@ -30,29 +30,23 @@ const useUserPreferences = (user: UserProfile | undefined, leagues: FootballLeag
 	};
 
 	const updateSelectedTeams = async (payload: FootballLeaguesValues) => {
-		const response = await fetch(
-			'http://localhost:3000/api/user-preferences/selected-teams',
-			{
-				method: 'PUT',
-				body: JSON.stringify(payload),
-				headers: {
-					'Content-Type': 'application/json',
-				},
+		const response = await fetch('/api/user-preferences/selected-teams', {
+			method: 'PUT',
+			body: JSON.stringify(payload),
+			headers: {
+				'Content-Type': 'application/json',
 			},
-		);
+		});
 	};
 
 	const updateGoogleCalendarId = async (payload: { googleCalendarId: string }) => {
-		const response = await fetch(
-			'http://localhost:3000/api/user-preferences/google-calendar-id',
-			{
-				method: 'PUT',
-				body: JSON.stringify(payload),
-				headers: {
-					'Content-Type': 'application/json',
-				},
+		const response = await fetch('/api/user-preferences/google-calendar-id', {
+			method: 'PUT',
+			body: JSON.stringify(payload),
+			headers: {
+				'Content-Type': 'application/json',
 			},
-		);
+		});
 
 		const data = await response.json();
 		return data;
@@ -60,7 +54,7 @@ const useUserPreferences = (user: UserProfile | undefined, leagues: FootballLeag
 
 	useEffect(() => {
 		const getUserPreferences = async () => {
-			const response = await fetch('http://localhost:3000/api/user-preferences', {
+			const response = await fetch('/api/user-preferences', {
 				headers: {
 					'Content-Type': 'application/json',
 				},

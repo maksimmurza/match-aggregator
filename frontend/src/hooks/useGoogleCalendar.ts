@@ -18,15 +18,12 @@ const useGoogleCalendar = ({
 	const [targetCalendarId, setTargetCalendarId] = useState<string>();
 
 	const getGoogleIdpToken = async (userId: string) => {
-		const response = await fetch(
-			`http://localhost:3000/api/user-data/?userId=${userId}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
+		const response = await fetch(`/api/user-data/?userId=${userId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
 			},
-		);
+		});
 
 		const data = await response.json();
 		const token = data.identities.find(
