@@ -8,11 +8,12 @@ import {
 	FootballTeam,
 	FootballTeamsValues,
 } from '@/types/appData';
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren, useCallback, useState } from 'react';
 import GameCard from './GameCard';
 import LeaguesTabs from './LeaguesTabsSchedule';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import useUserPreferences from '@/hooks/useUserPreferences';
+import useGoogleCalendar from '@/hooks/useGoogleCalendar';
 
 interface ScheduleProps {
 	schedule: Array<FootballMatch>;
@@ -21,8 +22,29 @@ interface ScheduleProps {
 
 const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) => {
 	const { user } = useUser();
-	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameVisible } =
-		useUserPreferences(user, leagues);
+	const {
+		selectedTeams,
+		googleCalendarId,
+		setSelectedTeams,
+		updateSelectedTeams,
+		updateGoogleCalendarId,
+		isGameVisible,
+	} = useUserPreferences(user, leagues);
+
+	const { targetCalendarId, addGameToCalendar } = useGoogleCalendar({
+		userId: user?.sub,
+		googleCalendarId,
+		updateGoogleCalendarId,
+	});
+
+	const insertGameEvent = useCallback(
+		(game: FootballMatch) => {
+			if (targetCalendarId) {
+				addGameToCalendar(game, targetCalendarId);
+			}
+		},
+		[targetCalendarId],
+	);
 
 	const displayedGames = schedule?.filter(isGameVisible);
 
@@ -32,7 +54,13 @@ const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) =
 				{displayedGames?.length > 0 ? (
 					displayedGames.map((item: FootballMatch) => {
 						return (
-							<GameCard key={item.id} {...item} className="border-b border-gray-300" />
+							<GameCard
+								key={item.id}
+								game={item}
+								addGameToCalendar={insertGameEvent}
+								canBeInsertedInCalendar={!!targetCalendarId}
+								className="border-b border-gray-300"
+							/>
 						);
 					})
 				) : (

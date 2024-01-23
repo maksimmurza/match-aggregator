@@ -28,8 +28,8 @@ const getLeagueSchedule = async (
 	}
 };
 
-export const getFullSchedule = cache(async (): Promise<Array<LeagueScheduleResponse>> => {
+export const getFullSchedule = async (): Promise<Array<LeagueScheduleResponse>> => {
 	return await Promise.all(
 		Object.values(LEAGUES_CODES).map((leagueCode) => getLeagueSchedule(leagueCode)),
 	);
-});
+};

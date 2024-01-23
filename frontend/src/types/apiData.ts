@@ -1,6 +1,6 @@
 import { DateString, DateTimeString, YYYY } from '@/types/dates';
 import { LEAGUES_CODES } from '../constants/requestOptions';
-import { MatchStatus } from '@/types/appData';
+import { FootballTeamsValues, MatchStatus } from '@/types/appData';
 
 // type equals set of LEAGUES_CODES values
 export type LeagueCode<T = typeof LEAGUES_CODES> = T[keyof T];
@@ -56,7 +56,8 @@ export interface LeagueTeamsResponse {
 }
 
 export type UserPreferences = {
-	unselectedTeams: Array<string>;
+	selectedTeams: FootballTeamsValues;
+	googleCalendarId: string;
 };
 
 export interface FootballTeamStandingApi {
