@@ -1,9 +1,8 @@
 import { DateString, DateTimeString, YYYY } from '@/types/dates';
-import { LEAGUES_CODES } from '../constants/requestOptions';
 import { FootballTeamsValues, MatchStatus } from '@/types/appData';
+import api from '@/utils/api-providers';
 
-// type equals set of LEAGUES_CODES values
-export type LeagueCode<T = typeof LEAGUES_CODES> = T[keyof T];
+export type LeagueCode<T = typeof api.data.leagueCodes> = T[keyof T];
 
 interface FootballPlayer {
 	id: number;

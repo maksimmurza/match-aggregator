@@ -1,19 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
+import api from '@/utils/api-providers';
 
 const GET = withApiAuthRequired(async () => {
+	// Observer ?
 	const { accessToken } = await getAccessToken();
-	const response = await fetch(
-		process.env.REACT_APP_SERVER_BASE_URL + '/user-preferences',
-		{
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${accessToken}`,
-			},
+	const userPreferences = await api.backend.fetch('/user-preferences', {
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${accessToken}`,
 		},
-	);
-
-	const userPreferences = await response.json();
+	});
 	return NextResponse.json(userPreferences);
 });
 
