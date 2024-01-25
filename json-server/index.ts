@@ -1,9 +1,9 @@
-import teamsPL from './data/teamsPL.js';
-import teamsPD from './data/teamsPD.js';
-import teamsCL from './data/teamsCL.js';
-import matchesPL from './data/matchesPL.js';
-import matchesPD from './data/matchesPD.js';
-import matchesCL from './data/matchesCL.js';
+import teamsPL from './data/teamsPL';
+import teamsPD from './data/teamsPD';
+import teamsCL from './data/teamsCL';
+import matchesPL from './data/matchesPL';
+import matchesPD from './data/matchesPD';
+import matchesCL from './data/matchesCL';
 
 import pkg from 'json-server';
 const { create, router, defaults } = pkg;

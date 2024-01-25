@@ -1,13 +1,12 @@
 # match-aggregator
 
-Rethinking my match-tracker project after 3+ years.
+[match-tracker](https://github.com/maksimmurza/match-tracker) project refactoring
 
-Brief description: ...
+_in progress_
 
-Next.JS
-Js -> Ts
-API layer
-get rid of rapid api
+- Typescript
+- NextJS + React
+- Auth0
+- NestJs + Sequilize + MySQL(?) backend
 
-Warnings:
-magic strings
+![Schedule screenshot](https://i.imgur.com/drEHkRI.png)
