@@ -3,7 +3,7 @@ import { isLeagueScheduleResponse } from '../../../../types/typeGuards';
 import { LeagueCode, LeagueScheduleResponse } from '../../../../types/apiData';
 import { API_TYPE_ERROR_MESSAGE } from '@/constants/errorMessages';
 import { NextResponse } from 'next/server';
-import api from '@/utils/api-providers';
+import api from '@/lib/api-providers';
 
 const GET = async () => {
 	const getLeagueSchedule = async (

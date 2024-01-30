@@ -1,8 +1,8 @@
 import { LeagueScheduleResponse, LeagueTeamsResponse } from '@/types/apiData';
-import Schedule from '@/components/Schedule';
+import Schedule from '@/components/schedule/Schedule';
 import { FootballMatch, FootballLeague } from '@/types/appData';
-import resolveLeagues from '@/utils/resolveLeagues';
-import resolveSchedule from '@/utils/resolveSchedule';
+import resolveLeagues from '@/lib/utils/resolveLeagues';
+import resolveSchedule from '@/lib/utils/resolveSchedule';
 
 export const dynamic = 'force-dynamic';
 

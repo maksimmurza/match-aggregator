@@ -1,13 +1,7 @@
 'use client';
 
 import React, { FC, PropsWithChildren, ReactNode, useState } from 'react';
-import {
-	Tabs,
-	TabsHeader,
-	TabsBody,
-	Tab,
-	TabPanel,
-} from '../components/MaterialTailwindComponents';
+import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from '../components';
 
 interface TabsPanelProps {
 	data: Array<{

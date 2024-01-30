@@ -1,6 +1,6 @@
 import { COMPETITION_TEAMS } from '../../../../constants/endpoints';
 import { NextResponse } from 'next/server';
-import api from '@/utils/api-providers';
+import api from '@/lib/api-providers';
 import { LeagueCode, LeagueTeamsResponse } from '@/types/apiData';
 
 const GET = async () => {

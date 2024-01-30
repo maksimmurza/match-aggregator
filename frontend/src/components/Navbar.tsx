@@ -1,13 +1,7 @@
 'use client';
 
 import React, { FC, PropsWithChildren, useState, useEffect } from 'react';
-import {
-	Navbar as NavbarMaterial,
-	Collapse,
-	Typography,
-	IconButton,
-	Button,
-} from './MaterialTailwindComponents';
+import { Navbar as NavbarMaterial, Collapse, Typography, IconButton, Button } from '.';
 import { HiBars3 } from 'react-icons/hi2';
 import { IoCloseOutline } from 'react-icons/io5';
 import ProfileClient from './ProfileClient';

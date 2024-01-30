@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
-import api from '@/utils/api-providers';
+import api from '@/lib/api-providers';
 
 const GET = withApiAuthRequired(async () => {
 	// Observer ?

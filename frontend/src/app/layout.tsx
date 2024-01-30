@@ -1,25 +1,8 @@
 import Navbar from '@/components/Navbar';
 import './globals.css';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import {
-	API_KEY,
-	CLIENT_ID,
-	DISCOVERY_DOCS,
-	SCOPES,
-} from '@/utils/googleCalendarIntegration';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-	// const gapiLoaded = () => {
-	// 	window.gapi.load('client', async () => {
-	// 		await window.gapi.client.init({
-	// 			apiKey: API_KEY,
-	// 			clientId: CLIENT_ID,
-	// 			discoveryDocs: DISCOVERY_DOCS,
-	// 			scope: SCOPES,
-	// 		});
-	// 	});
-	// };
-
 	return (
 		<html lang="en">
 			<UserProvider>
@@ -30,12 +13,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					</div>
 				</body>
 			</UserProvider>
-			{/* <script
-				async
-				defer
-				src="https://apis.google.com/js/api.js"
-				onLoad={gapiLoaded}
-			></script> */}
 		</html>
 	);
 }

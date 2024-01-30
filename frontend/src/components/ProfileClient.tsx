@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button } from './MaterialTailwindComponents';
+import { Button } from '.';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 

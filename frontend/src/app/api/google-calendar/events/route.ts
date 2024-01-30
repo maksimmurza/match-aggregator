@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
-import api from '@/utils/api-providers';
+import api from '@/lib/api-providers';
 
 const POST = withApiAuthRequired(async (request) => {
 	const body = await request.json();

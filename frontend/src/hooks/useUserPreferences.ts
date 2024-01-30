@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FootballLeague, FootballLeaguesValues, FootballMatch } from '@/types/appData';
-import { createSelectedTeamsObject } from '@/utils/data';
+import { createSelectedTeamsObject } from '@/lib/utils/data';
 import { UserProfile } from '@auth0/nextjs-auth0/client';
 import { UserPreferences } from '@/types/apiData';
 

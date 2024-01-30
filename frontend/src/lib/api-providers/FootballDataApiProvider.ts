@@ -1,5 +1,6 @@
 import ApiProvider from './ApiProvider';
 
+// TODO Promise retry
 class FootballDataApiProvider extends ApiProvider {
 	headers = {
 		'Content-Type': 'application/json',

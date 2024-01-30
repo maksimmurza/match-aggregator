@@ -1,5 +1,5 @@
 import { LeagueStandingsResponse } from '@/types/apiData';
-import LeaguesStandingsTabs from '@/components/LeaguesTabsStandings';
+import LeaguesStandingsTabs from '@/components/standings/LeaguesTabsStandings';
 import React from 'react';
 
 export const dynamic = 'force-dynamic';

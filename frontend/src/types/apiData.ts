@@ -1,6 +1,6 @@
 import { DateString, DateTimeString, YYYY } from '@/types/dates';
 import { FootballTeamsValues, MatchStatus } from '@/types/appData';
-import api from '@/utils/api-providers';
+import api from '@/lib/api-providers';
 
 export type LeagueCode<T = typeof api.data.leagueCodes> = T[keyof T];
 
