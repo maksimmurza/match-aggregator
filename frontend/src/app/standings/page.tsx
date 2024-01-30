@@ -1,12 +1,12 @@
 import { LeagueStandingsResponse } from '@/types/apiData';
-import LeaguesStandingsTabs from '@/components/standings/LeaguesTabsStandings';
+import LeaguesStandingsTabs from '@/components/LeaguesTabsStandings';
 import React from 'react';
 
 export const dynamic = 'force-dynamic';
 
 export default async function StandingsPage() {
 	const leaguesStandingsResponse: Array<LeagueStandingsResponse> = await fetch(
-		'/api/football-data/standings',
+		`${process.env.AUTH0_BASE_URL}/api/football-data/standings`,
 	).then((response) => response.json());
 
 	return (

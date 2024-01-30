@@ -1,6 +1,6 @@
 'use client';
 
-import ScrollableCardList from '@/layouts/ScrollableCardList';
+import ScrollableCardList from '@/components/ScrollableCardList';
 import { FootballLeague, FootballMatch } from '@/types/appData';
 import React, { FC, PropsWithChildren, useCallback } from 'react';
 import GameCard from './GameCard';

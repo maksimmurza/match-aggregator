@@ -1,6 +1,6 @@
 import { FootballLeague, FootballLeaguesValues } from '@/types/appData';
 import React, { FC, PropsWithChildren } from 'react';
-import TabsPanel from '@/layouts/TabsPanel';
+import TabsPanel from '@/components/TabsPanel';
 import LeagueCheckbox from './LeagueCheckbox';
 import TeamCheckbox from './TeamCheckbox';
 import { ReactSetState } from '@/types/utils';

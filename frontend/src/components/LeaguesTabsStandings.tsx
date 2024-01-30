@@ -5,7 +5,7 @@ import {
 	FootballTeamStandingApi,
 	LeagueStandingsResponse,
 } from '@/types/apiData';
-import TabsPanel from '@/layouts/TabsPanel';
+import TabsPanel from '@/components/TabsPanel';
 
 interface LeagueTabsProps {
 	// leagues: Array<Omit<FootballLeague, 'teams'>>;

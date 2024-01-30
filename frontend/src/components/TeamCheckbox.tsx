@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, PropsWithChildren, memo } from 'react';
 import { FootballLeague, FootballTeam } from '@/types/appData';
-import { Checkbox } from './MaterialTailwindComponents';
+import { Checkbox } from '.';
 
 interface TeamCheckboxProps {
 	team: FootballTeam;
