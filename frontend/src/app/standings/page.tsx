@@ -1,4 +1,3 @@
-import { getLeaguesStandings } from '@/actions/standings';
 import { LeagueStandingsResponse } from '@/types/apiData';
 import LeaguesStandingsTabs from '@/components/LeaguesTabsStandings';
 import React from 'react';
@@ -6,8 +5,9 @@ import React from 'react';
 export const dynamic = 'force-dynamic';
 
 export default async function StandingsPage() {
-	const leaguesStandingsResponse: Array<LeagueStandingsResponse> =
-		await getLeaguesStandings();
+	const leaguesStandingsResponse: Array<LeagueStandingsResponse> = await fetch(
+		`${process.env.AUTH0_BASE_URL}/api/football-data/standings`,
+	).then((response) => response.json());
 
 	return (
 		<div className="mt-4 h-screen overflow-hidden w-full relative">

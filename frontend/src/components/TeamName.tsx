@@ -1,4 +1,4 @@
-import { Typography } from '@/components/MaterialTailwindComponents';
+import { Typography } from '@/components';
 import React, { FC, PropsWithChildren } from 'react';
 
 interface TeamNameProps {

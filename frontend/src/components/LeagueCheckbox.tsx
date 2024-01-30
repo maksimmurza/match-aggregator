@@ -4,7 +4,7 @@
 
 import { FootballLeague } from '@/types/appData';
 import React, { FC, PropsWithChildren, memo } from 'react';
-import { Checkbox } from './MaterialTailwindComponents';
+import { Checkbox } from '.';
 import { FaMinus } from 'react-icons/fa';
 
 interface LeagueCheckboxProps {

@@ -15,4 +15,7 @@ export class UserPreferences extends Model {
 
 	@Column({ type: DataType.JSON })
 	selectedTeams: FootballLeaguesValues;
+
+	@Column({ type: DataType.STRING })
+	googleCalendarId: string;
 }

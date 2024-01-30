@@ -1,16 +1,20 @@
-import { getFullSchedule } from '@/actions/schedule';
-import { getLeaguesTeams } from '@/actions/teamsInfo';
 import { LeagueScheduleResponse, LeagueTeamsResponse } from '@/types/apiData';
 import Schedule from '@/components/Schedule';
 import { FootballMatch, FootballLeague } from '@/types/appData';
-import resolveLeagues from '@/utils/resolveLeagues';
-import resolveSchedule from '@/utils/resolveSchedule';
+import resolveLeagues from '@/lib/utils/resolveLeagues';
+import resolveSchedule from '@/lib/utils/resolveSchedule';
 
 export const dynamic = 'force-dynamic';
 
 export default async function SchedulePage() {
-	const scheduleResponse: Array<LeagueScheduleResponse> = await getFullSchedule();
-	const leaguesTeamsResponse: Array<LeagueTeamsResponse> = await getLeaguesTeams();
+	// rename var
+	const scheduleResponse: Array<LeagueScheduleResponse> = await fetch(
+		process.env.AUTH0_BASE_URL + '/api/football-data/schedule',
+	).then((response) => response.json());
+
+	const leaguesTeamsResponse: Array<LeagueTeamsResponse> = await fetch(
+		process.env.AUTH0_BASE_URL + '/api/football-data/teams',
+	).then((response) => response.json());
 
 	const schedule: Array<FootballMatch> = resolveSchedule(scheduleResponse);
 	const leagues: Array<FootballLeague> = resolveLeagues(leaguesTeamsResponse);

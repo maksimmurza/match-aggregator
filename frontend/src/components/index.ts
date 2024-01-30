@@ -13,6 +13,7 @@ import {
 	Collapse,
 	IconButton,
 	Button,
+	Tooltip,
 } from '@material-tailwind/react';
 
 export {
@@ -28,4 +29,5 @@ export {
 	Collapse,
 	IconButton,
 	Button,
+	Tooltip,
 };

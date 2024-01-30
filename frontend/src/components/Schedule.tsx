@@ -1,14 +1,8 @@
 'use client';
 
-import ScrollableCardList from '@/layouts/ScrollableCardList';
-import {
-	FootballLeague,
-	FootballLeaguesValues,
-	FootballMatch,
-	FootballTeam,
-	FootballTeamsValues,
-} from '@/types/appData';
-import React, { FC, PropsWithChildren, useState } from 'react';
+import ScrollableCardList from '@/components/ScrollableCardList';
+import { FootballLeague, FootballMatch } from '@/types/appData';
+import React, { FC, PropsWithChildren, useCallback } from 'react';
 import GameCard from './GameCard';
 import LeaguesTabs from './LeaguesTabsSchedule';
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -21,8 +15,23 @@ interface ScheduleProps {
 
 const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) => {
 	const { user } = useUser();
-	const { selectedTeams, setSelectedTeams, updateSelectedTeams, isGameVisible } =
+	const { userPreferences, setSelectedTeams, updateSelectedTeams, isGameVisible } =
 		useUserPreferences(user, leagues);
+
+	const insertGameEvent = useCallback(
+		async (game: FootballMatch) => {
+			if (userPreferences.googleCalendarId) {
+				await fetch('/api/google-calendar/events', {
+					method: 'POST',
+					body: JSON.stringify({
+						game,
+						googleCalendarId: userPreferences.googleCalendarId,
+					}),
+				});
+			}
+		},
+		[userPreferences.googleCalendarId],
+	);
 
 	const displayedGames = schedule?.filter(isGameVisible);
 
@@ -32,7 +41,13 @@ const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) =
 				{displayedGames?.length > 0 ? (
 					displayedGames.map((item: FootballMatch) => {
 						return (
-							<GameCard key={item.id} {...item} className="border-b border-gray-300" />
+							<GameCard
+								key={item.id}
+								game={item}
+								addGameToCalendar={insertGameEvent}
+								canBeInsertedInCalendar={!!userPreferences.googleCalendarId}
+								className="border-b border-gray-300"
+							/>
 						);
 					})
 				) : (
@@ -43,7 +58,7 @@ const Schedule: FC<PropsWithChildren<ScheduleProps>> = ({ schedule, leagues }) =
 			<div className="overflow-hidden relative min-w-[300px]">
 				<LeaguesTabs
 					leagues={leagues}
-					selectedTeams={selectedTeams}
+					selectedTeams={userPreferences.selectedTeams}
 					setSelectedTeams={setSelectedTeams}
 					updateSelectedTeams={updateSelectedTeams}
 				/>
