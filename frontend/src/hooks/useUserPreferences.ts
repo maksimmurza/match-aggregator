@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FootballLeague, FootballLeaguesValues, FootballMatch } from '@/types/appData';
 import { createSelectedTeamsObject } from '@/utils/data';
 import { UserProfile } from '@auth0/nextjs-auth0/client';
@@ -7,10 +7,10 @@ import { UserPreferences } from '@/types/apiData';
 const useUserPreferences = (user: UserProfile | undefined, leagues: FootballLeague[]) => {
 	const [userPreferences, setUserPreferences] = useState<{
 		selectedTeams: FootballLeaguesValues;
-		googleCalendarId: string;
+		googleCalendarId: string | undefined;
 	}>(() => ({
 		selectedTeams: createSelectedTeamsObject(leagues),
-		googleCalendarId: '',
+		googleCalendarId: undefined,
 	}));
 
 	const setSelectedTeams = (payload: FootballLeaguesValues) => {
@@ -53,34 +53,53 @@ const useUserPreferences = (user: UserProfile | undefined, leagues: FootballLeag
 	};
 
 	useEffect(() => {
-		const getUserPreferences = async () => {
-			const response = await fetch('/api/user-preferences', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-			const userPreferences = await response.json();
-
-			if (userPreferences) {
-				setUserPreferences((prev) => ({
-					selectedTeams: userPreferences.selectedTeams ?? prev.selectedTeams,
-					googleCalendarId: userPreferences.googleCalendarId ?? prev.googleCalendarId,
-				}));
-			}
-		};
-
 		if (user) {
-			getUserPreferences();
+			const getUserPreferences = async () => {
+				const response = await fetch('/api/user-preferences', {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+				const userPreferences = await response.json();
+
+				if (userPreferences) {
+					setUserPreferences((prev) => ({
+						selectedTeams: userPreferences.selectedTeams ?? prev.selectedTeams,
+						googleCalendarId: userPreferences.googleCalendarId ?? prev.googleCalendarId,
+					}));
+				}
+
+				return userPreferences;
+			};
+
+			getUserPreferences().then((userPreferences) => {
+				if (userPreferences.googleCalendarId !== undefined) {
+					const resolveCalendarId = async () => {
+						const response = await fetch(
+							`/api/google-calendar?userId=${user?.sub}&googleCalendarId=${userPreferences.googleCalendarId}`,
+						);
+
+						const { targetCalendarId } = await response.json();
+
+						if (!targetCalendarId) return;
+
+						if (targetCalendarId !== userPreferences.googleCalendarId) {
+							updateGoogleCalendarId({ googleCalendarId: targetCalendarId });
+							setGoogleCalendarId({ googleCalendarId: targetCalendarId });
+						}
+					};
+
+					resolveCalendarId();
+				}
+			});
 		}
 	}, [user]);
 
 	return {
-		selectedTeams: userPreferences.selectedTeams,
-		googleCalendarId: userPreferences.googleCalendarId,
+		userPreferences,
 		setSelectedTeams,
 		setGoogleCalendarId,
 		updateSelectedTeams,
-		updateGoogleCalendarId,
 		isGameVisible,
 	};
 };
