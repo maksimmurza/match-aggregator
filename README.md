@@ -1,4 +1,5 @@
 # match-aggregator
+Trying next to build football schedule
 
 [match-tracker](https://github.com/maksimmurza/match-tracker) project refactoring
 
